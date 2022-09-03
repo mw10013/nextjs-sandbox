@@ -1,3 +1,16 @@
+[Create Nextjs with typescript eslint prettier tailwind](https://www.sandromaglione.com/techblog/create-nextjs-project-with-typescript-eslint-prettier-tailwindcss)
+[Next app typescript eslint prettier tailwind](https://www.felixmokross.dev/blog/next-app-typescript-eslint-prettier-tailwind)
+
+- npm install --save-dev prettier eslint-config-prettier eslint-plugin-prettier
+- npm install --save-dev @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-import-resolver-typescript
+- echo {}> .prettierrc.json
+- cp .gitignore .prettierignore
+
+[Prettier](https://prettier.io/docs/en/install.html)
+
+- npx prettier --write .
+- npx prettier --check .
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
