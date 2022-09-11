@@ -1,7 +1,34 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 import styles from "../styles/Home.module.css";
+
+/*
+<a href="https://nextjs.org/docs" className={styles.card}>
+            <h2>Documentation &rarr;</h2>
+            <p>Find in-depth information about Next.js features and API.</p>
+          </a>
+*/
+
+function Card({
+  href,
+  title,
+  description,
+}: {
+  href: string;
+  title: string;
+  description: string;
+}) {
+  return (
+    <Link href={href}>
+      <a>
+        <h2>{title}</h2>
+        <p>{description}</p>
+      </a>
+    </Link>
+  );
+}
 
 const Home: NextPage = () => {
   return (
@@ -23,6 +50,11 @@ const Home: NextPage = () => {
           </a>
         </h1>
         <div className={styles.grid}>
+          <Card
+            href="https://nextjs.org/docs"
+            title="Documentation"
+            description="Find blah blah blah"
+          />
           <a href="https://nextjs.org/docs" className={styles.card}>
             <h2>Documentation &rarr;</h2>
             <p>Find in-depth information about Next.js features and API.</p>
