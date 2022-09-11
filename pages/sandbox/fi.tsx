@@ -1,12 +1,13 @@
 import type { NextPage } from "next";
 import Link from "next/link";
+import Layout from "../../components/layout";
 
 const Fi: NextPage = () => {
   return (
-    <div className="max-w-md mx-auto mt-8">
+    <Layout>
       <h1 className="text-5xl font-bold">Fi</h1>
       <Link href="fee">Fee</Link>
-    </div>
+    </Layout>
   );
 };
 
