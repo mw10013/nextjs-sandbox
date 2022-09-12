@@ -8,6 +8,7 @@
 - cp .gitignore .prettierignore
 - npm install -D tailwindcss postcss autoprefixer
 - npx tailwindcss init -p
+- npm install -D prettier-plugin-tailwindcss
 
 [Prettier](https://prettier.io/docs/en/install.html)
 

@@ -23,8 +23,8 @@ function Card({
 }) {
   return (
     <Link href={href}>
-      <a className="m-4 p-[1.5rem] border rounded-[10px] max-w-[300px] hover:text-indigo-500 hover:border-indigo-500">
-        <h2 className="text-2xl mb-4">{title} &rarr;</h2>
+      <a className="m-4 max-w-[300px] rounded-[10px] border p-[1.5rem] hover:border-indigo-500 hover:text-indigo-500">
+        <h2 className="mb-4 text-2xl">{title} &rarr;</h2>
         <p className="text-xl leading-[1.5]">{description}</p>
       </a>
     </Link>
@@ -40,8 +40,8 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="min-h-screen py-16 flex flex-1 flex-col justify-center items-center">
-        <h1 className="leading-[1.15] text-[4rem]">
+      <main className="flex min-h-screen flex-1 flex-col items-center justify-center py-16">
+        <h1 className="text-[4rem] leading-[1.15]">
           Welcome to{" "}
           <a
             className="text-indigo-500 hover:underline"
@@ -50,22 +50,22 @@ const Home: NextPage = () => {
             Next.js Sandbox
           </a>
         </h1>
-        <div className="flex flex-wrap flex-col md:flex-row justify-center items-center max-w-[800px]">
+        <div className="flex max-w-[800px] flex-col flex-wrap items-center justify-center md:flex-row">
           {cards.map((props) => (
             <Card key={props.href} {...props} />
           ))}
         </div>
       </main>
 
-      <footer className="flex flex-1 py-8 justify-center items-center border-t">
+      <footer className="flex flex-1 items-center justify-center border-t py-8">
         <a
-          className="flex justify-center items-center flex-grow"
+          className="flex flex-grow items-center justify-center"
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
           target="_blank"
           rel="noopener noreferrer"
         >
           Powered by{" "}
-          <span className="h-4 ml-2">
+          <span className="ml-2 h-4">
             <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
           </span>
         </a>
