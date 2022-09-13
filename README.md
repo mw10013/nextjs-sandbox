@@ -8,7 +8,8 @@
 - cp .gitignore .prettierignore
 - npm install -D tailwindcss postcss autoprefixer
 - npx tailwindcss init -p
-- npm install -D @tailwindcss/forms 
+- npm install -D @tailwindcss/forms
+- npm install react-hook-form 
 
 
 [Prettier](https://prettier.io/docs/en/install.html)
