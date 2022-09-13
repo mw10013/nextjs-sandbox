@@ -10,16 +10,36 @@ export default function SimpleForm() {
       last: form.last.value as string,
     };
 
-    const response = await fetch("/api/form", {
+    // const response = await fetch("/api/form", {
+    //   body: JSON.stringify(data),
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   method: "POST",
+    // });
+
+    // const result = await response.json();
+    // alert(`Is this your full name: ${result.data}`);
+
+    fetch("/api/simple-form", {
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
       },
       method: "POST",
-    });
-
-    const result = await response.json();
-    alert(`Is this your full name: ${result.data}`);
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error, status = ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        alert(`data: ${JSON.stringify(data, null, 2)}`);
+      })
+      .catch((error) => {
+        alert(`Error: ${error.message}`);
+      });
   };
   return (
     <div className="mx-auto max-w-sm pt-8">
