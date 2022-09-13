@@ -6,10 +6,11 @@ import Link from "next/link";
 const cards = [
   { href: "/sandbox/fee", title: "Fee", description: "Simple fee page." },
   { href: "/sandbox/fi", title: "Fi", description: "Simple fi page." },
-  { href: "/sandbox/fee", title: "Fee", description: "Simple fee page." },
-  { href: "/sandbox/fi", title: "Fi", description: "Simple fi page." },
-  { href: "/sandbox/fee", title: "Fee", description: "Simple fee page." },
-  { href: "/sandbox/fi", title: "Fi", description: "Simple fi page." },
+  {
+    href: "/sandbox/simple-form",
+    title: "Simple Form",
+    description: "Simple form.",
+  },
 ];
 
 function Card({
