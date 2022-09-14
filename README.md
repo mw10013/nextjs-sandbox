@@ -9,8 +9,9 @@
 - npm install -D tailwindcss postcss autoprefixer
 - npx tailwindcss init -p
 - npm install -D @tailwindcss/forms
-- npm install react-hook-form 
-
+- npm install react-hook-form
+- npm install @hookform/resolvers
+- npm install zod
 
 [Prettier](https://prettier.io/docs/en/install.html)
 
