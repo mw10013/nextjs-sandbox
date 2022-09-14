@@ -12,7 +12,6 @@ export default function SimpleReactHookForm() {
     watch,
     formState: { errors },
   } = useForm<Inputs>();
-  //   const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
   const onSubmit: SubmitHandler<Inputs> = (data) => alert(JSON.stringify(data));
 
   console.log(watch("example")); // you can watch individual input by pass the name of the input
