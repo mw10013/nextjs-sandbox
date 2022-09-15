@@ -16,6 +16,11 @@ const cards = [
     title: "Simple React Hook Form",
     description: "Simple react hook form.",
   },
+  {
+    href: "/sandbox/simple-zod-form",
+    title: "Simple Zod Form",
+    description: "Simple zod form.",
+  },
 ];
 
 function Card({
