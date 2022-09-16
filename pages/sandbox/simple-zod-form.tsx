@@ -1,4 +1,4 @@
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 
@@ -7,12 +7,14 @@ const schema = z.object({
   age: z.number().min(10),
 });
 
-export default function SimpleReactHookForm() {
+type Schema = z.infer<typeof schema>;
+
+export default function SimpleZodForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm({
+    formState: { errors, isSubmitting },
+  } = useForm<Schema>({
     // resolver: zodResolver(schema)
     resolver: async (data, context, options) => {
       console.log("formData", data);
@@ -72,7 +74,8 @@ export default function SimpleReactHookForm() {
           )}
           <button
             type="submit"
-            className="mt-6 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            disabled={isSubmitting}
+            className="mt-6 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50"
           >
             Submit
           </button>
