@@ -26,6 +26,11 @@ const cards = [
     title: "Simple React Query Form",
     description: "Simple react query form.",
   },
+  {
+    href: "/sandbox/simple-magic-login-form",
+    title: "Simple Magic Login Form",
+    description: "Simple magic login form.",
+  },
 ];
 
 function Card({
