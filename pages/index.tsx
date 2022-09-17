@@ -21,6 +21,11 @@ const cards = [
     title: "Simple Zod Form",
     description: "Simple zod form.",
   },
+  {
+    href: "/sandbox/simple-react-query-form",
+    title: "Simple React Query Form",
+    description: "Simple react query form.",
+  },
 ];
 
 function Card({

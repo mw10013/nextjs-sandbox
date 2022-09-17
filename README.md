@@ -13,6 +13,7 @@
 - npm install @hookform/resolvers
 - npm install zod
 - npm i @tanstack/react-query
+- npm install @supabase/supabase-js@rc
 
 [Prettier](https://prettier.io/docs/en/install.html)
 
