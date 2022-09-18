@@ -22,7 +22,7 @@
 
 ## Supabase CLI
 
-[Install via NPM](https://github.com/supabase/cli)
+[Install via NPM](https://github.com/supabase/cli),
 [Supabase Local Development](https://supabase.com/docs/guides/cli/local-development)
 
 - npm i supabase
@@ -30,7 +30,39 @@
 - npx supabase login
 - npx supabase init
 - npx supabase start | stop | status
-- npx supabase gen types typescript --db-url
+- npx supabase gen types typescript --local > DatabaseDefinitions.ts
+
+## Supabase Profiles Table
+
+Sql from supabase with nextjs [example](https://supabase.com/docs/guides/with-nextjs)
+
+```sql
+-- Create a table for public "profiles"
+create table profiles (
+  id uuid references auth.users not null,
+  updated_at timestamp with time zone,
+  username text unique,
+
+  primary key (id),
+  unique(username),
+  constraint username_length check (char_length(username) >= 3)
+);
+
+alter table profiles enable row level security;
+
+create policy "Public profiles are viewable by everyone."
+  on profiles for select
+  using ( true );
+
+create policy "Users can insert their own profile."
+  on profiles for insert
+  with check ( auth.uid() = id );
+
+create policy "Users can update own profile."
+  on profiles for update
+  using ( auth.uid() = id );
+
+```
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
