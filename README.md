@@ -20,6 +20,18 @@
 - npx prettier --write .
 - npx prettier --check .
 
+## Supabase CLI
+
+[Install via NPM](https://github.com/supabase/cli)
+[Supabase Local Development](https://supabase.com/docs/guides/cli/local-development)
+
+- npm i supabase
+- npx supabase -h
+- npx supabase login
+- npx supabase init
+- npx supabase start | stop | status
+- npx supabase gen types typescript --db-url
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
