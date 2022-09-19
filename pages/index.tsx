@@ -31,6 +31,11 @@ const cards = [
     title: "Simple Magic Login Form",
     description: "Simple magic login form.",
   },
+  {
+    href: "/sandbox/supabase-auth-quickstart",
+    title: "Supabase Auth Quickstart",
+    description: "Supabase auth quickstart.",
+  },
 ];
 
 function Card({
