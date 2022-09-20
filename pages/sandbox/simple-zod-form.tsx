@@ -56,7 +56,7 @@ export default function SimpleZodForm() {
             className="mt-1 block rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
           />
           {typeof errors.name?.message === "string" && (
-            <p className="mt-2 text-sm text-red-600">{errors.name?.message}</p>
+            <p className="mt-2 text-sm text-red-600">{errors.name.message}</p>
           )}
           <label
             htmlFor="age"
@@ -70,7 +70,7 @@ export default function SimpleZodForm() {
             className="mt-1 block rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
           />
           {typeof errors.age?.message === "string" && (
-            <p className="mt-2 text-sm text-red-600">{errors.age?.message}</p>
+            <p className="mt-2 text-sm text-red-600">{errors.age.message}</p>
           )}
           <button
             type="submit"

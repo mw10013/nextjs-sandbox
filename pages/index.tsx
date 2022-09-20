@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 const cards = [
+  { href: "/sandbox/users", title: "Users", description: "Display supabase users." },
   { href: "/sandbox/fee", title: "Fee", description: "Simple fee page." },
   { href: "/sandbox/fi", title: "Fi", description: "Simple fi page." },
   {

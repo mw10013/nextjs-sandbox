@@ -58,7 +58,7 @@ function Auth() {
             className="mt-1 block rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
           />
           {typeof errors.email?.message === "string" && (
-            <p className="mt-2 text-sm text-red-600">{errors.email?.message}</p>
+            <p className="mt-2 text-sm text-red-600">{errors.email.message}</p>
           )}
 
           <button
@@ -74,9 +74,20 @@ function Auth() {
   );
 }
 
+const accountSchema = z.object({
+  username: z.string().min(1, { message: "Required" }),
+});
+
+type AccountSchema = z.infer<typeof accountSchema>;
+
 function Account({ session }: { session: Session }) {
   const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState<string>("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<AccountSchema>({ resolver: zodResolver(accountSchema) });
 
   useEffect(() => {
     getProfile();
@@ -152,40 +163,61 @@ function Account({ session }: { session: Session }) {
   }
 
   return (
-    <div className="form-widget">
-      <div>
-        <label htmlFor="email">Email</label>
-        <input id="email" type="text" value={session.user.email} disabled />
-      </div>
-      <div>
-        <label htmlFor="username">Name</label>
+    <div className="mx-auto max-w-sm pt-8">
+      <form
+        onSubmit={handleSubmit(async ({ username }) => {
+          // alert(`username: ${username}`);
+          updateProfile({ username });
+        })}
+      >
+        <label
+          htmlFor="email"
+          className="block text-sm font-medium text-gray-700"
+        >
+          Email
+        </label>
+        {/* <input id="email" type="text" value={session.user.email} disabled /> */}
         <input
-          id="username"
           type="text"
-          //   value={username || ""}
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          id="email"
+          defaultValue={session.user.email}
+          disabled
+          className="mt-1 block rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
         />
-      </div>
 
-      <div>
-        <button
-          className="button primary block"
-          onClick={() => updateProfile({ username })}
-          disabled={loading}
+        <label
+          htmlFor="username"
+          className="mt-6 block text-sm font-medium text-gray-700"
         >
-          {loading ? "Loading ..." : "Update"}
-        </button>
-      </div>
+          Name
+        </label>
+        <input
+          type="text"
+          {...register("username")}
+          defaultValue={username}
+          className="mt-1 block rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+        />
+        {typeof errors.username?.message === "string" && (
+          <p className="mt-2 text-sm text-red-600">{errors.username.message}</p>
+        )}
 
-      <div>
-        <button
-          className="button block"
-          onClick={() => supabase.auth.signOut()}
-        >
-          Sign Out
-        </button>
-      </div>
+        <div className="flex justify-between">
+          <button
+            type="button"
+            className="mt-6 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50"
+            onClick={() => supabase.auth.signOut()}
+          >
+            Sign Out
+          </button>
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="mt-6 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
     </div>
   );
 }
@@ -228,7 +260,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="container" style={{ padding: "50px 0 100px 0" }}>
+    <div>
       {!session ? (
         <Auth />
       ) : (

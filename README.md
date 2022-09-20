@@ -31,6 +31,7 @@
 - npx supabase init
 - npx supabase start | stop | status
 - npx supabase gen types typescript --local > DatabaseDefinitions.ts
+- psql postgresql://postgres:postgres@localhost:54322/postgres
 
 ## Supabase Profiles Table
 
