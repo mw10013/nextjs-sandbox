@@ -16,7 +16,9 @@ Uses pnpm.
 - npm install @hookform/resolvers
 - npm install zod
 - npm i @tanstack/react-query
-- npm install @supabase/supabase-js@rc
+- pnpm add @supabase/supabase-js
+- pnpm add @supabase/auth-helpers-nextjs
+- pnpm add @supabase/auth-helpers-react
 
 [Prettier](https://prettier.io/docs/en/install.html)
 
