@@ -4,38 +4,38 @@ Uses pnpm.
 [Next app typescript eslint prettier tailwind](https://www.felixmokross.dev/blog/next-app-typescript-eslint-prettier-tailwind)
 [Tailwind install](https://tailwindcss.com/docs/guides/nextjs)
 
-- npm install --save-dev prettier eslint-config-prettier eslint-plugin-prettier
-- npm install --save-dev @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-import-resolver-typescript
+- pnpm add -D prettier eslint-config-prettier eslint-plugin-prettier
+- pnpm add -D @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-import-resolver-typescript
 - pnpm add -D eslint-plugin-import
 - echo {}> .prettierrc.json
 - cp .gitignore .prettierignore
-- npm install -D tailwindcss postcss autoprefixer
-- npx tailwindcss init -p
-- npm install -D @tailwindcss/forms
-- npm install react-hook-form
-- npm install @hookform/resolvers
-- npm install zod
-- npm i @tanstack/react-query
+- pnpm add -D tailwindcss postcss autoprefixer
+- pnpm exec tailwindcss init -p
+- pnpm add -D @tailwindcss/forms
+- pnpm add react-hook-form
+- pnpm add @hookform/resolvers
+- pnpm add zod
+- pnpm add @tanstack/react-query
 - pnpm add @supabase/supabase-js
 - pnpm add @supabase/auth-helpers-nextjs
 - pnpm add @supabase/auth-helpers-react
 
 [Prettier](https://prettier.io/docs/en/install.html)
 
-- npx prettier --write .
-- npx prettier --check .
+- pnpm exec prettier --write .
+- pnpm exec prettier --check .
 
 ## Supabase CLI
 
 [Install via NPM](https://github.com/supabase/cli),
 [Supabase Local Development](https://supabase.com/docs/guides/cli/local-development)
 
-- npm i supabase
-- npx supabase -h
-- npx supabase login
-- npx supabase init
-- npx supabase start | stop | status
-- npx supabase gen types typescript --local > DatabaseDefinitions.ts
+- npm i supabase | pnpm add supabase ???
+- pnpm exec supabase -h
+- pnpm exec supabase login
+- pnpm exec supabase init
+- pnpm exec supabase start | stop | status
+- pnpm exec supabase gen types typescript --local > DatabaseDefinitions.ts
 - psql postgresql://postgres:postgres@localhost:54322/postgres
 
 ## Supabase Profiles Table

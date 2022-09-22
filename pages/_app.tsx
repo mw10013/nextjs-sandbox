@@ -4,6 +4,8 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
+import { UserProvider } from "@supabase/auth-helpers-react";
+import { supabaseClient } from "@supabase/auth-helpers-nextjs";
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 
@@ -13,7 +15,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
-        <Component {...pageProps} />
+        <UserProvider supabaseClient={supabaseClient}>
+          <Component {...pageProps} />
+        </UserProvider>
       </Hydrate>
     </QueryClientProvider>
   );
