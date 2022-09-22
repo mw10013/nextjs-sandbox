@@ -4,8 +4,21 @@ import Image from "next/image";
 import Link from "next/link";
 
 const cards = [
-  { href: "/sandbox/auth-helpers-login-form", title: "Auth Helpers Login Form", description: "Uses auth-helpers" },
-  { href: "/sandbox/users", title: "Users", description: "Display supabase users." },
+  {
+    href: "/sandbox/auth-helpers-login-form",
+    title: "Auth Helpers Login Form",
+    description: "Uses auth-helpers",
+  },
+  {
+    href: "/middleware-protected",
+    title: "Middleware Protected",
+    description: "Uses auth-helpers",
+  },
+  {
+    href: "/sandbox/users",
+    title: "Users",
+    description: "Display supabase users.",
+  },
   { href: "/sandbox/fee", title: "Fee", description: "Simple fee page." },
   { href: "/sandbox/fi", title: "Fi", description: "Simple fi page." },
   {
