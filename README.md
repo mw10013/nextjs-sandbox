@@ -38,6 +38,25 @@ Uses pnpm.
 - pnpm exec supabase gen types typescript --local > DatabaseDefinitions.ts
 - psql postgresql://postgres:postgres@localhost:54322/postgres
 
+## Chinook Sample Database
+
+Unable to get pgloader on debian/wsl working with supabase postgresql in windows docker.
+
+- https://wasm.supabase.com/
+- alter user postgres with password 'postgres';
+- create database chinook;
+- Network | Start
+- Status at bottom of page (port will be different0): psql postgres://postgres@proxy.wasm.supabase.com:6055
+- psql postgres://postgres:postgres@proxy.wasm.supabase.com:6055/chinook
+- docker run --rm -it dimitri/pgloader:latest pgloader --verbose https://github.com/lerocha/chinook-database/raw/master/ChinookDatabase/DataSources/Chinook_Sqlite_AutoIncrementPKs.sqlite postgres://postgres:postgres@proxy.wasm.supabase.com:6055/chinook
+- pg_dump -Fc -v -f chinook.dump postgres://postgres:postgres@proxy.wasm.supabase.com:6055/chinook
+- pg_dump -v -f chinook.sql postgres://postgres:postgres@proxy.wasm.supabase.com:6055/chinook
+- psql postgresql://postgres:postgres@localhost:54322/postgres
+- create database chinook;
+- pg_restore -v -d postgresql://postgres:postgres@localhost:54322/chinook chinook.dump
+- psql postgresql://postgres:postgres@localhost:54322/chinook
+- select genre.name, count(*) as count from genre left join track using(genreid)  group by genre.name order by count desc;
+
 ## Supabase Profiles Table
 
 Sql from supabase with nextjs [example](https://supabase.com/docs/guides/with-nextjs)
