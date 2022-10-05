@@ -19,6 +19,7 @@ Uses pnpm.
 - pnpm add @supabase/supabase-js
 - pnpm add @supabase/auth-helpers-nextjs
 - pnpm add @supabase/auth-helpers-react
+- pnpm add -D @pgtyped/cli @pgtyped/query
 
 [Prettier](https://prettier.io/docs/en/install.html)
 
@@ -88,6 +89,10 @@ create policy "Users can update own profile."
   using ( auth.uid() = id );
 
 ```
+
+## pgtyped
+
+- pnpm exec pgtyped -w -c pgtyped.json
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
