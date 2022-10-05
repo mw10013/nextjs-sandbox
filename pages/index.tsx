@@ -5,6 +5,11 @@ import Link from "next/link";
 
 const cards = [
   {
+    href: "/chinook/basic",
+    title: "Basic Chinook",
+    description: "pgtyped with pg",
+  },
+  {
     href: "/sandbox/auth-helpers-login-form",
     title: "Auth Helpers Login Form",
     description: "Uses auth-helpers",
