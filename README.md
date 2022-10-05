@@ -20,6 +20,8 @@ Uses pnpm.
 - pnpm add @supabase/auth-helpers-nextjs
 - pnpm add @supabase/auth-helpers-react
 - pnpm add -D @pgtyped/cli @pgtyped/query
+- pnpm add pg
+- pnpm add -D @types/pg
 
 [Prettier](https://prettier.io/docs/en/install.html)
 

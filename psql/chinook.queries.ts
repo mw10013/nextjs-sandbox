@@ -33,7 +33,7 @@ export const findGenres = new PreparedQuery<IFindGenresParams,IFindGenresResult>
 
 /** 'FindAlbumsByArtist' parameters type */
 export interface IFindAlbumsByArtistParams {
-  name: string;
+  name: string | null | void;
 }
 
 /** 'FindAlbumsByArtist' return type */
@@ -48,7 +48,7 @@ export interface IFindAlbumsByArtistQuery {
   result: IFindAlbumsByArtistResult;
 }
 
-const findAlbumsByArtistIR: any = {"usedParamSet":{"name":true},"params":[{"name":"name","required":true,"transform":{"type":"scalar"},"locs":[{"a":254,"b":259}]}],"statement":"-- name: list-albums-by-artist\n-- List the album titles and duration of a given artist\nselect album.title as album,\nsum(milliseconds) * interval '1 ms' as duration\nfrom album\njoin artist using(artistid)\nleft join track using(albumid)\nwhere artist.name = :name!\ngroup by album\norder by album"};
+const findAlbumsByArtistIR: any = {"usedParamSet":{"name":true},"params":[{"name":"name","required":false,"transform":{"type":"scalar"},"locs":[{"a":254,"b":258}]}],"statement":"-- name: list-albums-by-artist\n-- List the album titles and duration of a given artist\nselect album.title as album,\nsum(milliseconds) * interval '1 ms' as duration\nfrom album\njoin artist using(artistid)\nleft join track using(albumid)\nwhere artist.name = :name\ngroup by album\norder by album"};
 
 /**
  * Query generated from SQL:
@@ -60,7 +60,7 @@ const findAlbumsByArtistIR: any = {"usedParamSet":{"name":true},"params":[{"name
  * from album
  * join artist using(artistid)
  * left join track using(albumid)
- * where artist.name = :name!
+ * where artist.name = :name
  * group by album
  * order by album
  * ```
