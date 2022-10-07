@@ -1,7 +1,11 @@
 import { Client } from "pg";
 import type { InferGetServerSidePropsType } from "next";
 import Layout from "../../components/layout";
-import { findAlbumsByArtist, findTopGenres } from "../../psql/chinook.queries";
+import {
+  findAlbumsByArtist,
+  findTopArtistsByAlbum,
+  findTopGenres,
+} from "../../psql/chinook.queries";
 
 const connectionString =
   "postgresql://postgres:postgres@localhost:54322/chinook";
@@ -12,10 +16,11 @@ export const getServerSideProps = async () => {
   });
   await client.connect();
 
-  const genres = await findTopGenres.run({ limit: "3" }, client);
+  const genres = await findTopGenres.run({ n: "3" }, client);
   const albums = (
     await findAlbumsByArtist.run({ name: "The Who" }, client)
   ).map((x) => x.album);
+  const topArtists = await findTopArtistsByAlbum.run({ n: "4" }, client);
 
   await client.end();
 
@@ -24,6 +29,7 @@ export const getServerSideProps = async () => {
       data: {
         genres,
         albums,
+        topArtists,
       },
     },
   };

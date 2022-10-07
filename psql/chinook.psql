@@ -5,7 +5,7 @@ from genre
 left join track using(genreid)
 group by genre.name
 order by count desc
-limit :limit!;
+limit :n!;
 
 /* @name FindAlbumsByArtist */
 -- name: list-albums-by-artist
@@ -15,7 +15,7 @@ sum(milliseconds) * interval '1 ms' as duration
 from album
 join artist using(artistid)
 left join track using(albumid)
-where artist.name = :name
+where artist.name = :name!
 group by album
 order by album;
 
