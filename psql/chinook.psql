@@ -1,10 +1,11 @@
 
-/* @name FindGenres */
+/* @name FindTopGenres */
 select genre.name, count(*) as count
 from genre
 left join track using(genreid)
 group by genre.name
-order by count desc;
+order by count desc
+limit :limit!;
 
 /* @name FindAlbumsByArtist */
 -- name: list-albums-by-artist

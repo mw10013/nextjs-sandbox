@@ -95,6 +95,7 @@ create policy "Users can update own profile."
 ## pgtyped
 
 - pnpm exec pgtyped -w -c pgtyped.json
+- psql postgresql://postgres:postgres@localhost:54322/chinook
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 

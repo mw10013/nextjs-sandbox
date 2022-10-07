@@ -1,22 +1,24 @@
 /** Types generated for queries found in "psql/chinook.psql" */
 import { PreparedQuery } from '@pgtyped/query';
 
-/** 'FindGenres' parameters type */
-export type IFindGenresParams = void;
+/** 'FindTopGenres' parameters type */
+export interface IFindTopGenresParams {
+  limit: string;
+}
 
-/** 'FindGenres' return type */
-export interface IFindGenresResult {
+/** 'FindTopGenres' return type */
+export interface IFindTopGenresResult {
   count: string | null;
   name: string | null;
 }
 
-/** 'FindGenres' query type */
-export interface IFindGenresQuery {
-  params: IFindGenresParams;
-  result: IFindGenresResult;
+/** 'FindTopGenres' query type */
+export interface IFindTopGenresQuery {
+  params: IFindTopGenresParams;
+  result: IFindTopGenresResult;
 }
 
-const findGenresIR: any = {"usedParamSet":{},"params":[],"statement":"select genre.name, count(*) as count\nfrom genre\nleft join track using(genreid)\ngroup by genre.name\norder by count desc"};
+const findTopGenresIR: any = {"usedParamSet":{"limit":true},"params":[{"name":"limit","required":true,"transform":{"type":"scalar"},"locs":[{"a":125,"b":131}]}],"statement":"select genre.name, count(*) as count\nfrom genre\nleft join track using(genreid)\ngroup by genre.name\norder by count desc\nlimit :limit!"};
 
 /**
  * Query generated from SQL:
@@ -26,9 +28,10 @@ const findGenresIR: any = {"usedParamSet":{},"params":[],"statement":"select gen
  * left join track using(genreid)
  * group by genre.name
  * order by count desc
+ * limit :limit!
  * ```
  */
-export const findGenres = new PreparedQuery<IFindGenresParams,IFindGenresResult>(findGenresIR);
+export const findTopGenres = new PreparedQuery<IFindTopGenresParams,IFindTopGenresResult>(findTopGenresIR);
 
 
 /** 'FindAlbumsByArtist' parameters type */
