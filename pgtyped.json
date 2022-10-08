@@ -15,5 +15,5 @@
   "srcDir": "./db/",
   "camelCaseColumnNames": true,
   "hungarianNotation": false,
-  "dbUrl": "postgresql://postgres:postgres@localhost:54322/chinook"
+  "dbUrl": "postgresql://postgres:postgres@localhost:54322/postgres"
 }

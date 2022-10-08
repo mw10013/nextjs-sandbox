@@ -11,7 +11,7 @@ declare global {
 export const pgPool =
   global.pgPool ??
   new Pool({
-    connectionString: "postgresql://postgres:postgres@localhost:54322/chinook",
+    connectionString: "postgresql://postgres:postgres@localhost:54322/postgres",
   });
 
 if (process.env.NODE_ENV !== "production") global.pgPool = pgPool;
