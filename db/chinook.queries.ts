@@ -1,4 +1,4 @@
-/** Types generated for queries found in "psql/chinook.psql" */
+/** Types generated for queries found in "db/chinook.psql" */
 import { PreparedQuery } from '@pgtyped/query';
 
 /** 'FindTopGenres' parameters type */

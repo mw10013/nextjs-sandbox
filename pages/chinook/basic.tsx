@@ -1,28 +1,18 @@
-import { Client } from "pg";
+import { pgPool } from "../../db";
 import type { InferGetServerSidePropsType } from "next";
 import Layout from "../../components/layout";
 import {
   findAlbumsByArtist,
   findTopArtistsByAlbum,
   findTopGenres,
-} from "../../psql/chinook.queries";
-
-const connectionString =
-  "postgresql://postgres:postgres@localhost:54322/chinook";
+} from "../../db/chinook.queries";
 
 export const getServerSideProps = async () => {
-  const client = new Client({
-    connectionString,
-  });
-  await client.connect();
-
-  const genres = await findTopGenres.run({ n: "3" }, client);
+  const genres = await findTopGenres.run({ n: "3" }, pgPool);
   const albums = (
-    await findAlbumsByArtist.run({ name: "The Who" }, client)
+    await findAlbumsByArtist.run({ name: "The Who" }, pgPool)
   ).map((x) => x.album);
-  const topArtists = await findTopArtistsByAlbum.run({ n: "4" }, client);
-
-  await client.end();
+  const topArtists = await findTopArtistsByAlbum.run({ n: "4" }, pgPool);
 
   return {
     props: {
