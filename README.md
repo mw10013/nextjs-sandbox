@@ -69,7 +69,6 @@ Unable to get pgloader on debian/wsl working with supabase postgresql in windows
 - postgresql://postgres:postgres@localhost:54322/postgres
 - create database factbook;
 
-
 ## Supabase Profiles Table
 
 Sql from supabase with nextjs [example](https://supabase.com/docs/guides/with-nextjs)
