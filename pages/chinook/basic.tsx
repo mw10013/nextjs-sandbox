@@ -5,6 +5,8 @@ import {
   findAlbumsByArtist,
   findTopArtistsByAlbum,
   findTopGenres,
+  getAllAlbums,
+  getAllAlbumsByArtist,
 } from "../../db/chinook.queries";
 
 export const getServerSideProps = async () => {
@@ -13,10 +15,19 @@ export const getServerSideProps = async () => {
     await findAlbumsByArtist.run({ name: "The Who" }, pgPool)
   ).map((x) => x.album);
   const topArtists = await findTopArtistsByAlbum.run({ n: "4" }, pgPool);
+  const chiliAlbums = (await getAllAlbums.run({ artistid: "127" }, pgPool)).map(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    ({ duration, ...rest }) => rest
+  );
+  const chiliAllAlbums = (
+    await getAllAlbumsByArtist.run({ name: "Red Hot Chili Peppers" }, pgPool)
+  ).map(({ duration, ...rest }) => rest);
 
   return {
     props: {
       data: {
+        chiliAlbums,
+        chiliAllAlbums,
         genres,
         albums,
         topArtists,

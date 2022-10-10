@@ -106,3 +106,62 @@ const findTopArtistsByAlbumIR: any = {"usedParamSet":{"n":true},"params":[{"name
 export const findTopArtistsByAlbum = new PreparedQuery<IFindTopArtistsByAlbumParams,IFindTopArtistsByAlbumResult>(findTopArtistsByAlbumIR);
 
 
+/** 'GetAllAlbums' parameters type */
+export interface IGetAllAlbumsParams {
+  artistid: string;
+}
+
+/** 'GetAllAlbums' return type */
+export interface IGetAllAlbumsResult {
+  album: string | null;
+  duration: string | null;
+}
+
+/** 'GetAllAlbums' query type */
+export interface IGetAllAlbumsQuery {
+  params: IGetAllAlbumsParams;
+  result: IGetAllAlbumsResult;
+}
+
+const getAllAlbumsIR: any = {"usedParamSet":{"artistid":true},"params":[{"name":"artistid","required":true,"transform":{"type":"scalar"},"locs":[{"a":29,"b":38}]}],"statement":"select * from get_all_albums(:artistid!)"};
+
+/**
+ * Query generated from SQL:
+ * ```
+ * select * from get_all_albums(:artistid!)
+ * ```
+ */
+export const getAllAlbums = new PreparedQuery<IGetAllAlbumsParams,IGetAllAlbumsResult>(getAllAlbumsIR);
+
+
+/** 'GetAllAlbumsByArtist' parameters type */
+export interface IGetAllAlbumsByArtistParams {
+  name: string | null | void;
+}
+
+/** 'GetAllAlbumsByArtist' return type */
+export interface IGetAllAlbumsByArtistResult {
+  album: string | null;
+  artistid: string;
+  duration: string | null;
+  name: string | null;
+}
+
+/** 'GetAllAlbumsByArtist' query type */
+export interface IGetAllAlbumsByArtistQuery {
+  params: IGetAllAlbumsByArtistParams;
+  result: IGetAllAlbumsByArtistResult;
+}
+
+const getAllAlbumsByArtistIR: any = {"usedParamSet":{"name":true},"params":[{"name":"name","required":false,"transform":{"type":"scalar"},"locs":[{"a":75,"b":79}]}],"statement":"select * from artist, lateral get_all_albums(artistid)\nwhere artist.name = :name"};
+
+/**
+ * Query generated from SQL:
+ * ```
+ * select * from artist, lateral get_all_albums(artistid)
+ * where artist.name = :name
+ * ```
+ */
+export const getAllAlbumsByArtist = new PreparedQuery<IGetAllAlbumsByArtistParams,IGetAllAlbumsByArtistResult>(getAllAlbumsByArtistIR);
+
+
