@@ -34,14 +34,17 @@ Uses pnpm.
 [Supabase Local Development](https://supabase.com/docs/guides/cli/local-development)
 
 - pnpm add -D supabase
-- pnpm exec supabase -h
-- pnpm exec supabase login
-- pnpm exec supabase init
-- pnpm exec supabase start | stop | status
-- pnpm exec supabase db diff --use-migra --file [file_name]
-- pnpm exec supabase db reset --debug
-- pnpm exec supabase db branch create | delete | list | switch
-- pnpm exec supabase gen types typescript --local > DatabaseDefinitions.ts
+- pnpm supabase -h
+- pnpm supabase login
+- pnpm supabase init
+- pnpm supabase start | stop | status
+- pnpm supabase db diff --use-migra --file [file_name]
+- pnpm supabase db reset --debug
+- pnpm supabase db branch create | delete | list | switch
+- pnpm supabase link -p [db password] --project-ref [string]
+- pnpm supabase db push -p [db password]
+- psql: \i supabase/seed.sql
+- pnpm supabase gen types typescript --local > DatabaseDefinitions.ts
 - psql postgresql://postgres:postgres@localhost:54322/postgres
 
 ## Chinook Sample Database
