@@ -40,6 +40,7 @@ Uses pnpm.
 - pnpm exec supabase start | stop | status
 - pnpm exec supabase db diff --use-migra --file [file_name]
 - pnpm exec supabase db reset --debug
+- pnpm exec supabase db branch create | delete | list | switch
 - pnpm exec supabase gen types typescript --local > DatabaseDefinitions.ts
 - psql postgresql://postgres:postgres@localhost:54322/postgres
 
