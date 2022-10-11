@@ -8,9 +8,18 @@ import {
   getAllAlbums,
   getAllAlbumsByArtist,
 } from "../../db/chinook.queries";
+import { findGenreTopN } from "../../db/genre-topn.queries";
+import { findTopNArtistsByAlbum } from "../../db/top-artists-by-album.queries";
+import { findInspiredArtists } from "../../db/inspired-artists.queries";
 
 export const getServerSideProps = async () => {
-  const genres = await findTopGenres.run({ n: "3" }, pgPool);
+  const inspiredArtists = await findInspiredArtists.run(undefined, pgPool);
+  const topNArtistsByAlbum = await findTopNArtistsByAlbum.run(
+    { n: "3" },
+    pgPool
+  );
+  const genres = await findTopGenres.run({ n: "2" }, pgPool);
+  const genreTopN = await findGenreTopN.run({ n: "2" }, pgPool);
   const albums = (
     await findAlbumsByArtist.run({ name: "The Who" }, pgPool)
   ).map((x) => x.album);
@@ -21,11 +30,16 @@ export const getServerSideProps = async () => {
   );
   const chiliAllAlbums = (
     await getAllAlbumsByArtist.run({ name: "Red Hot Chili Peppers" }, pgPool)
-  ).map(({ duration, ...rest }) => rest);
+  )
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    .map(({ duration, ...rest }) => rest);
 
   return {
     props: {
       data: {
+        inspiredArtists,
+        topNArtistsByAlbum,
+        genreTopN,
         chiliAlbums,
         chiliAllAlbums,
         genres,
