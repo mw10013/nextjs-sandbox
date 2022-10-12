@@ -67,11 +67,22 @@ Unable to get pgloader on debian/wsl working with supabase postgresql in windows
 - pg_dump -v --data-only --inserts -f chinook_db_data.sql postgresql://postgres:postgres@localhost:54322/chinook
 - pg_restore -v -d postgresql://postgres:postgres@localhost:54322/postgres --schema-only chinook_db.dump
 - psql postgresql://postgres:postgres@localhost:54322/chinook
-- select genre.name, count(*) as count from genre left join track using(genreid)  group by genre.name order by count desc;
+- select genre.name, count(\*) as count from genre left join track using(genreid) group by genre.name order by count desc;
 
 ## Factbook Database
+
 - postgresql://postgres:postgres@localhost:54322/postgres
 - create database factbook;
+
+## F1DB
+
+- https://raw.githubusercontent.com/tomredsky/f1db/master/f1db_postgres.sql
+- https://github.com/mikebranski/the-art-of-postgresql-docker
+- psql postgresql://postgres:postgres@localhost:54322/postgres
+- create database f1db;
+- \i f1db.sql
+- ALTER DATABASE f1db SET search_path TO f1db, public;
+- psql postgresql://postgres:postgres@localhost:54322/f1db
 
 ## Supabase Profiles Table
 
