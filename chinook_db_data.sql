@@ -1,3 +1,5 @@
+-- pgFormatter-ignore
+
 --
 -- PostgreSQL database dump
 --

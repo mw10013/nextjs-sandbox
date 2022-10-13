@@ -78,6 +78,7 @@ Unable to get pgloader on debian/wsl working with supabase postgresql in windows
 
 - https://raw.githubusercontent.com/tomredsky/f1db/master/f1db_postgres.sql
 - replace _id with id
+- remove _ from table names: constructor_results, constructor_standings, driver_standings, lap_times, pit_stops
 - https://github.com/mikebranski/the-art-of-postgresql-docker
 - psql postgresql://postgres:postgres@localhost:54322/postgres
 - create database f1db;
