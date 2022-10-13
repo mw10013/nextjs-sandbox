@@ -84,7 +84,7 @@ Unable to get pgloader on debian/wsl working with supabase postgresql in windows
 - create database f1db;
 - \c f1db
 - \i f1db/f1db_dump.sql
-- ALTER DATABASE f1db SET search_path TO f1db, public;
+- ALTER DATABASE f1db SET search_path TO f1db, public; ?
 - psql postgresql://postgres:postgres@localhost:54322/f1db
 
 ## Supabase Profiles Table

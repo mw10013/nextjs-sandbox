@@ -35,3 +35,11 @@ order by
     wins desc
 limit 3;
 
+-- Be careful about not in semantics with NULL: the following query returns no rows
+select
+    x
+from
+    generate_series(1, 100) as t (x)
+where
+    x not in (1, 2, 3, null);
+
