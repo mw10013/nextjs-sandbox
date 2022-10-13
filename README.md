@@ -73,7 +73,7 @@ Unable to get pgloader on debian/wsl working with supabase postgresql in windows
 
 - postgresql://postgres:postgres@localhost:54322/postgres
 - create database factbook;
-
+  
 ## F1DB
 
 - https://raw.githubusercontent.com/tomredsky/f1db/master/f1db_postgres.sql
