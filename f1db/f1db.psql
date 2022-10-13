@@ -1,14 +1,11 @@
 -- f1db.psql is not pgtyped since it does not have .sql extension?
-select
-    code,
+select code,
     format('%s %s', forename, surname) as fullname,
     forename,
     surname
-from
-    drivers;
+from drivers;
 
-select
-    date::date,
+select date::date,
     extract('isodow' from date) as dow,
     to_char(date, 'dy') as day,
     extract('isoyear' from date) as "iso year",
@@ -16,30 +13,115 @@ select
     extract('day' from (date + interval '2 month - 1 day')) as feb,
     extract('year' from date) as year,
     extract('day' from (date + interval '2 month - 1 day')) = 29 as leap
-from
-    generate_series(date '2000-01-01', date '2010-01-01', interval '1 year') as t (date);
+from generate_series(date '2000-01-01', date '2010-01-01', interval '1 year') as t (date);
 
-select
-    code,
+select code,
     forename,
     surname,
     count(*) as wins
-from
-    drivers
+from drivers
     join results using (driverid)
-where
-    position = 1
-group by
-    driverid
-order by
-    wins desc
+where position = 1
+group by driverid
+order by wins desc
 limit 3;
 
 -- Be careful about not in semantics with NULL: the following query returns no rows
-select
-    x
-from
-    generate_series(1, 100) as t (x)
-where
-    x not in (1, 2, 3, null);
+select x
+from generate_series(1, 100) as t (x)
+where x not in (1, 2, 3, null);
+
+explain (costs off)
+select year,
+    url
+from seasons
+order by year desc
+limit 3;
+
+select drivers.code,
+    drivers.surname,
+    position,
+    laps,
+    status
+from results
+    join drivers using (driverid)
+    join status using (statusid)
+where raceid = 972
+order by position nulls last,
+    laps desc,
+    case when status = 'Power Unit' then
+        1
+    else
+        2
+    end;
+
+select name,
+    location,
+    country
+from circuits
+order by point(lng, lat) <-> point(2.349014, 48.864716)
+limit 10;
+
+select extract('year' from date_trunc('decade', date)) as decade,
+    count(*) as count
+from races
+group by decade
+order by decade desc;
+
+with decades as (
+    select extract('year' from date_trunc('decade', date)) as decade
+    from races
+    group by decade
+)
+select decade,
+    rank() over (partition by decade order by wins desc) as rank,
+        forename,
+        surname,
+        wins
+    from decades
+    left join lateral (
+        select code,
+            forename,
+            surname,
+            count(*) as wins
+        from drivers
+            join results on results.driverid = drivers.driverid
+                and results.position = 1
+            join races using (raceid)
+        where extract('year'
+            from date_trunc('decade', races.date)) = decades.decade
+        group by decades.decade, drivers.driverid
+        order by wins desc
+        limit 3) as winners on true
+order by decade asc,
+    wins desc;
+
+select lap,
+    drivers.code,
+    position,
+    milliseconds * interval '1ms' as laptime
+from laptimes
+    join drivers using (driverid)
+where raceid = 972
+order by lap,
+    position fetch first 3 rows only;
+
+select lap,
+    drivers.code,
+    position,
+    milliseconds * interval '1ms' as laptime
+from laptimes
+    join drivers using (driverid)
+where raceid = 972
+    and row (lap,
+        position) > (1,
+        3)
+order by lap,
+    position fetch first 3 rows only;
+
+select extract('year' from date_trunc('decade', date)) as decade,
+    count(*)
+from races
+group by decade
+order by decade;
 
