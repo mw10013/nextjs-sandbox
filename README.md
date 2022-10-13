@@ -82,7 +82,8 @@ Unable to get pgloader on debian/wsl working with supabase postgresql in windows
 - https://github.com/mikebranski/the-art-of-postgresql-docker
 - psql postgresql://postgres:postgres@localhost:54322/postgres
 - create database f1db;
-- \i f1db.sql
+- \c f1db
+- \i f1db/f1db_dump.sql
 - ALTER DATABASE f1db SET search_path TO f1db, public;
 - psql postgresql://postgres:postgres@localhost:54322/f1db
 
