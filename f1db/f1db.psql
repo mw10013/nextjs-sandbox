@@ -125,3 +125,125 @@ from races
 group by decade
 order by decade;
 
+with races_per_decade as (
+    select extract('year' from date_trunc('decade', date)) as decade,
+        count(*) as nbraces
+    from races
+    group by decade
+    order by decade
+)
+select decade,
+    nbraces,
+    case when lag(nbraces, 1) over (order by decade) is null then
+        ''
+    when nbraces - lag(nbraces, 1) over (order by decade) < 0 then
+        format('-%3s', lag(nbraces, 1) over (order by decade) - nbraces)
+    else
+        format('+%3s', nbraces - lag(nbraces, 1) over (order by decade))
+    end as evolution
+from races_per_decade;
+
+select driverid,
+    forename,
+    surname,
+    count(*) as races,
+    bool_and(position is null) as never_finished
+from drivers
+    join results using (driverid)
+    join races using (raceid)
+group by driverid;
+
+with counts as (
+    select driverid,
+        forename,
+        surname,
+        count(*) as races,
+        bool_and(position is null) as never_finished
+    from drivers
+        join results using (driverid)
+        join races using (raceid)
+    group by driverid
+)
+select driverid,
+    forename,
+    surname,
+    races
+from counts
+where never_finished
+order by races desc;
+
+select date_trunc('year', date) as year,
+    driverid,
+    count(*) filter (where position is null) as outs,
+    count(*),
+    bool_and(position is null) as never_finished
+from drivers
+    join results using (driverid)
+    join races using (raceid)
+group by date_trunc('year', date),
+    driverid
+order by driverid,
+    date_trunc('year', date);
+
+with counts as (
+    select date_trunc('year', date) as year,
+        count(*) filter (where position is null) as outs,
+        bool_and(position is null) as never_finished
+    from drivers
+        join results using (driverid)
+        join races using (raceid)
+    group by date_trunc('year', date), driverid
+)
+select extract(year from year) as season,
+    sum(outs) as did_not_finish
+from counts
+where never_finished
+group by season
+order by sum(outs) desc
+limit 5;
+
+select drivers.surname as driver,
+    constructors.name as constructor,
+    sum(points) as points
+from results
+    join races using (raceid)
+    join drivers using (driverid)
+    join constructors using (constructorid)
+where drivers.surname in ('Prost', 'Senna')
+group by rollup (drivers.surname, constructors.name);
+
+select drivers.surname as driver,
+    constructors.name as constructor,
+    sum(points) as points
+from results
+    join races using (raceid)
+    join drivers using (driverid)
+    join constructors using (constructorid)
+where drivers.surname in ('Prost', 'Senna')
+group by rollup (drivers.surname, constructors.name)
+order by driver,
+    constructor;
+
+select drivers.surname as driver,
+    constructors.name as constructor,
+    sum(points) as points
+from results
+    join races using (raceid)
+    join drivers using (driverid)
+    join constructors using (constructorid)
+where drivers.surname in ('Prost', 'Senna')
+group by cube (drivers.surname,
+        constructors.name);
+
+select drivers.surname as driver,
+    constructors.name as constructor,
+    sum(points) as points
+from results
+    join races using (raceid)
+    join drivers using (driverid)
+    join constructors using (constructorid)
+where drivers.surname in ('Prost', 'Senna')
+group by cube (drivers.surname,
+        constructors.name)
+order by driver, constructor;        
+
