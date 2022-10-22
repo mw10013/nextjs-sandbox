@@ -245,5 +245,164 @@ from results
 where drivers.surname in ('Prost', 'Senna')
 group by cube (drivers.surname,
         constructors.name)
-order by driver, constructor;        
+order by driver,
+    constructor;
+
+select extract(year from races.date) as season,
+    count(*) filter (where status = 'Accident') as accidents
+from results
+    join status using (statusid)
+    join races using (raceid)
+group by season
+order by accidents desc
+limit 5;
+
+select extract(year from races.date) as season,
+    count(*) as participants,
+    count(*) filter (where status = 'Accident') as accidents
+from results
+    join status using (statusid)
+    join races using (raceid)
+group by season
+order by season desc;
+
+with accidents as (
+    select extract(year from races.date) as season,
+        count(*) as participants,
+        count(*) filter (where status = 'Accident') as accidents
+    from results
+        join status using (statusid)
+        join races using (raceid)
+    group by season
+)
+select season,
+    round(100.0 * accidents / participants, 2) as pct,
+    repeat(text '■', ceil(100 * accidents / participants)::int) as bar
+from accidents
+where season between 1974 and 1990
+order by season;
+
+select year as season,
+    driverid,
+    constructorid,
+    sum(points) as points
+from results
+    join races using (raceid)
+group by grouping sets ((year,
+            driverid),
+        (year,
+            constructorid))
+having sum(points) > 0
+order by season,
+    points desc;
+
+with points as (
+    select year as season,
+        driverid,
+        constructorid,
+        sum(points) as points
+    from results
+        join races using (raceid)
+    group by grouping sets ((year, driverid), (year, constructorid))
+    having sum(points) > 0
+    order by season, points desc
+),
+tops as (
+    select season,
+        max(points) filter (where driverid is null) as ctops,
+        max(points) filter (where constructorid is null) as dtops
+    from points
+    group by season
+    order by season,
+        dtops,
+        ctops
+),
+champs as (
+    select tops.season,
+        champ_driver.driverid,
+        champ_driver.points,
+        champ_constructor.constructorid,
+        champ_constructor.points
+    from tops
+        join points as champ_driver on champ_driver.season = tops.season
+            and champ_driver.constructorid is null
+            and champ_driver.points = tops.dtops
+        join points as champ_constructor on champ_constructor.season = tops.season
+            and champ_constructor.driverid is null
+            and champ_constructor.points = tops.ctops
+)
+    select season,
+        format('%s %s', drivers.forename, drivers.surname) as "Driver's Champion",
+    constructors.name as "Constructor's champion"
+from champs
+join drivers using (driverid)
+join constructors using (constructorid)
+order by season;
+
+select distinct on (driverid)
+    forename,
+    surname
+from results
+    join drivers using (driverid)
+where position = 1;
+
+select count(distinct (driverid))
+from results
+    join drivers using (driverid)
+where position = 1;
+
+select forename,
+    surname
+from results
+    join drivers using (driverid)
+where position = 1
+group by drivers.driverid;
+
+(
+    select raceid,
+        'driver' as type,
+        format('%s %s', drivers.forename, drivers.surname) as name,
+        driverstandings.points
+    from driverstandings
+        join drivers using (driverid)
+    where raceid = 972
+        and points > 0)
+union all (
+    select raceid,
+        'constructor' as type,
+        constructors.name as name,
+        constructorstandings.points
+    from constructorstandings
+        join constructors using (constructorid)
+    where raceid = 972
+        and points > 0)
+order by points desc;
+
+(
+    select driverid,
+        format('%s %s', drivers.forename, drivers.surname) as name
+    from results
+        join drivers using (driverid)
+    where raceid = 972
+        and points = 0)
+except (
+    select driverid,
+        format('%s %s', drivers.forename, drivers.surname) as name
+    from results
+        join drivers using (driverid)
+    where raceid = 971
+        and points = 0);
+
+(
+    select name,
+        location,
+        country
+    from circuits
+    order by position <-> point(2.349014, 48.864716))
+except (
+    select name,
+        location,
+        country
+    from circuits
+    order by point(lng, lat) <-> point(2.349014, 48.864716));
 

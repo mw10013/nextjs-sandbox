@@ -47,6 +47,16 @@ Uses pnpm.
 - pnpm supabase gen types typescript --local > DatabaseDefinitions.ts
 - psql postgresql://postgres:postgres@localhost:54322/postgres
 
+## Access Prisma Database
+
+```bash
+createdb --echo --owner postgres -T template0 --maintenance-db postgresql://postgres:postgres@localhost:54322/postgres access_prisma
+pg_restore -v -d postgresql://postgres:postgres@localhost:54322/access_prisma access_prisma/access_prisma_db_20221015.dump
+```
+
+- pg_restore -v --schema-only --file access_prisma/access_prisma_schema_20221015.sql access/access_db_20221015.dump
+- pg_restore -v --data-only --file access_prisma/access_prisma_data_20221015.sql access_prisma/access_prisma_db_20221015.dump
+
 ## Chinook Sample Database
 
 Unable to get pgloader on debian/wsl working with supabase postgresql in windows docker.
@@ -85,6 +95,7 @@ Unable to get pgloader on debian/wsl working with supabase postgresql in windows
 - \c f1db
 - \i f1db/f1db_dump.sql
 - ALTER DATABASE f1db SET search_path TO f1db, public; ?
+- pg_dump -Fc -v -f f1db.dump postgresql://postgres:postgres@localhost:54322/f1db
 - psql postgresql://postgres:postgres@localhost:54322/f1db
 
 ## Supabase Profiles Table

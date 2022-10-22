@@ -15,9 +15,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
-        <UserProvider supabaseClient={supabaseClient}>
-          <Component {...pageProps} />
-        </UserProvider>
+        {/* <UserProvider supabaseClient={supabaseClient}> */}
+        <Component {...pageProps} />
+        {/* </UserProvider> */}
       </Hydrate>
     </QueryClientProvider>
   );

@@ -96,6 +96,7 @@ const Home: NextPage = () => {
             Next.js Sandbox
           </a>
         </h1>
+
         <div className="flex max-w-[800px] flex-col flex-wrap items-center justify-center md:flex-row">
           {cards.map((props) => (
             <Card key={props.href} {...props} />
