@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { supabase } from "../../utils/supabaseClient";
+import { supabaseClient } from "../../utils/supabaseClient";
 
 const schema = z.object({
   email: z.string().min(1, { message: "Required" }).email(),
@@ -22,7 +22,7 @@ export default function SimpleMagicLoginForm() {
     <div className="mx-auto max-w-sm pt-8">
       <form
         onSubmit={handleSubmit(async ({ email }) => {
-          const { error } = await supabase.auth.signInWithOtp({
+          const { error } = await supabaseClient.auth.signInWithOtp({
             email,
           });
           if (error) throw error;

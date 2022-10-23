@@ -5,6 +5,11 @@ import Link from "next/link";
 
 const cards = [
   {
+    href: "/sandbox/supabase_client_page",
+    title: "Supabase Client Page",
+    description: "Sandbox for supabase client",
+  },
+  {
     href: "/chinook/basic",
     title: "Basic Chinook",
     description: "pgtyped with pg",

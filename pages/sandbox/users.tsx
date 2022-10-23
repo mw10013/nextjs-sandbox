@@ -1,46 +1,38 @@
-import {
-  InferGetServerSidePropsType,
-  GetServerSideProps,
-  GetServerSidePropsContext,
-} from "next";
-import type { Database } from "../../DatabaseDefinitions";
-import { createClient } from "@supabase/supabase-js";
+import { InferGetServerSidePropsType } from "next";
+import { supabaseAdminClient } from "../../utils/supabaseClient";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-
-// https://supabase.com/docs/reference/javascript/next/initializing
-const supabaseAdmin = createClient<Database>(
-  supabaseUrl ?? "",
-  supabaseServiceRoleKey ?? ""
-);
-
-export const getServerSideProps = async (
-  context: GetServerSidePropsContext
-) => {
-  // Assuming the access token was sent as a header "X-Supabase-Auth"
-  // const { access_token } = context.req.get('X-Supabase-Auth')
-
+export const getServerSideProps = async () => {
+  const {
+    data: { user },
+    error: createUserError,
+  } = await supabaseAdminClient.auth.admin.createUser({
+    email: "user@email.com",
+    password: "password",
+    user_metadata: { name: "Yoda" },
+  });
+  if (createUserError) throw createUserError;
   const {
     data: { users },
-    error,
-  } = await supabaseAdmin.auth.admin.listUsers();
-  if (error) throw error;
+    error: listUsersError,
+  } = await supabaseAdminClient.auth.admin.listUsers();
+  if (listUsersError) throw listUsersError;
   return {
     props: {
-      // data: users,
-      data: context.req.headers,
+      data: users,
+      user,
+      users,
     },
   };
 };
 
 function Page({
-  data,
+  user,
+  users,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
     <div>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
+      <pre>{JSON.stringify(user, null, 2)}</pre>
+      <pre>{JSON.stringify(users, null, 2)}</pre>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { supabase } from "../../utils/supabaseClient";
+import { supabaseClient } from "../../utils/supabaseClient";
 import { useEffect, useState } from "react";
 import { Session } from "@supabase/supabase-js";
 
@@ -24,7 +24,7 @@ function Auth() {
     <div className="mx-auto max-w-sm pt-8">
       <form
         onSubmit={handleSubmit(async ({ email }) => {
-          const { error } = await supabase.auth.signInWithOtp({
+          const { error } = await supabaseClient.auth.signInWithOtp({
             email,
           });
           if (error) throw error;
@@ -97,7 +97,7 @@ function Account({ session }: { session: Session }) {
     const {
       data: { session },
       error,
-    } = await supabase.auth.getSession();
+    } = await supabaseClient.auth.getSession();
 
     if (error) {
       throw error;
@@ -115,7 +115,7 @@ function Account({ session }: { session: Session }) {
       setLoading(true);
       const user = await getCurrentUser();
 
-      const { data, error, status } = await supabase
+      const { data, error, status } = await supabaseClient
         .from("profiles")
         .select(`username`)
         .eq("id", user.id)
@@ -148,7 +148,7 @@ function Account({ session }: { session: Session }) {
         updated_at: new Date().toISOString(),
       };
 
-      const { error } = await supabase.from("profiles").upsert(updates);
+      const { error } = await supabaseClient.from("profiles").upsert(updates);
 
       if (error) {
         throw error;
@@ -205,7 +205,7 @@ function Account({ session }: { session: Session }) {
           <button
             type="button"
             className="mt-6 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50"
-            onClick={() => supabase.auth.signOut()}
+            onClick={() => supabaseClient.auth.signOut()}
           >
             Sign Out
           </button>
@@ -232,7 +232,7 @@ export default function Home() {
     async function getInitialSession() {
       const {
         data: { session },
-      } = await supabase.auth.getSession();
+      } = await supabaseClient.auth.getSession();
 
       // only update the react state if the component is still mounted
       if (mounted) {
@@ -248,7 +248,7 @@ export default function Home() {
 
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
+    } = supabaseClient.auth.onAuthStateChange((_event, session) => {
       setSession(session);
     });
 
