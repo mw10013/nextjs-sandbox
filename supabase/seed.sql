@@ -20,32 +20,14 @@ set client_min_messages = warning;
 
 set row_security = off;
 
-insert into auth.audit_log_entries
-    values ('00000000-0000-0000-0000-000000000000', 'f7d1c8f9-35e1-4fa5-98d1-4d09d897f67e', '{"action":"user_invited","actor_id":"00000000-0000-0000-0000-000000000000","actor_username":"service_role","log_type":"team","traits":{"user_email":"appuser1@access.com","user_id":"f47bfe76-134c-4b27-859f-8007451a2522"}}', '2022-10-24 18:42:40.269872+00', '');
-
-insert into auth.audit_log_entries
-    values ('00000000-0000-0000-0000-000000000000', '3d938dc6-2dd1-41e2-ac78-362b1626b0fd', '{"action":"user_signedup","actor_id":"f47bfe76-134c-4b27-859f-8007451a2522","actor_username":"appuser1@access.com","log_type":"team"}', '2022-10-24 18:43:08.060071+00', '');
-
-insert into auth.audit_log_entries
-    values ('00000000-0000-0000-0000-000000000000', '9ad1f197-caaf-4fdf-944b-f084d625637f', '{"action":"user_invited","actor_id":"00000000-0000-0000-0000-000000000000","actor_username":"service_role","log_type":"team","traits":{"user_email":"appuser2@access.com","user_id":"733e54ae-c9dc-4b9a-94d0-764fbd1bd76e"}}', '2022-10-24 18:44:27.910088+00', '');
-
-insert into auth.audit_log_entries
-    values ('00000000-0000-0000-0000-000000000000', '40f4abb4-3b10-4e33-9c1a-76abc24edadb', '{"action":"user_signedup","actor_id":"733e54ae-c9dc-4b9a-94d0-764fbd1bd76e","actor_username":"appuser2@access.com","log_type":"team"}', '2022-10-24 18:44:49.803008+00', '');
-
-insert into auth.audit_log_entries
-    values ('00000000-0000-0000-0000-000000000000', '78c1f59f-a148-483f-8054-f69b096f7ea6', '{"action":"user_invited","actor_id":"00000000-0000-0000-0000-000000000000","actor_username":"service_role","log_type":"team","traits":{"user_email":"admin@access.com","user_id":"b6d21aab-58ec-4122-be89-ca6355dc52f5"}}', '2022-10-24 18:45:07.465014+00', '');
-
-insert into auth.audit_log_entries
-    values ('00000000-0000-0000-0000-000000000000', '7bd69a3e-8eb3-44a8-9bd6-cd1fec5e7763', '{"action":"user_signedup","actor_id":"b6d21aab-58ec-4122-be89-ca6355dc52f5","actor_username":"admin@access.com","log_type":"team"}', '2022-10-24 18:45:28.990906+00', '');
+insert into auth.users
+    values ('00000000-0000-0000-0000-000000000000', 'f47bfe76-134c-4b27-859f-8007451a2522', 'authenticated', 'authenticated', 'appuser1@access.com', '$2a$10$gpKhyWF9dqgdGHWH/1opjepSRz9A8QtFm1.Oko227YleD0L9.X9Y2', '2022-10-24 18:43:08.061827+00', '2022-10-24 18:42:40.271826+00', '', '2022-10-24 18:42:40.271826+00', '', null, '', '', null, '2022-10-24 18:43:08.063267+00', '{"provider": "email", "providers": ["email"]}', '{"appRole": "customer"}', null, '2022-10-24 18:42:40.263963+00', '2022-10-24 19:35:24.86125+00', null, null, '', '', null, default, '', 0, NULL, '', null);
 
 insert into auth.users
-    values ('00000000-0000-0000-0000-000000000000', 'f47bfe76-134c-4b27-859f-8007451a2522', 'authenticated', 'authenticated', 'appuser1@access.com', '$2a$10$gpKhyWF9dqgdGHWH/1opjepSRz9A8QtFm1.Oko227YleD0L9.X9Y2', '2022-10-24 18:43:08.061827+00', '2022-10-24 18:42:40.271826+00', '', '2022-10-24 18:42:40.271826+00', '', null, '', '', null, '2022-10-24 18:43:08.063267+00', '{"provider": "email", "providers": ["email"]}', '{}', null, '2022-10-24 18:42:40.263963+00', '2022-10-24 18:43:08.067372+00', null, null, '', '', null, default, '', 0, NULL, '', null);
+    values ('00000000-0000-0000-0000-000000000000', '733e54ae-c9dc-4b9a-94d0-764fbd1bd76e', 'authenticated', 'authenticated', 'appuser2@access.com', '$2a$10$AZYjA8btkrIOWMgiqDiRz.BKQZyuPhMmITy8IqhU7piSVLSPbdija', '2022-10-24 18:44:49.803753+00', '2022-10-24 18:44:27.910894+00', '', '2022-10-24 18:44:27.910894+00', '', null, '', '', null, '2022-10-24 18:44:49.804272+00', '{"provider": "email", "providers": ["email"]}', '{"appRole": "customer"}', null, '2022-10-24 18:44:27.908407+00', '2022-10-24 19:35:24.886198+00', null, null, '', '', null, default, '', 0, NULL, '', null);
 
 insert into auth.users
-    values ('00000000-0000-0000-0000-000000000000', '733e54ae-c9dc-4b9a-94d0-764fbd1bd76e', 'authenticated', 'authenticated', 'appuser2@access.com', '$2a$10$AZYjA8btkrIOWMgiqDiRz.BKQZyuPhMmITy8IqhU7piSVLSPbdija', '2022-10-24 18:44:49.803753+00', '2022-10-24 18:44:27.910894+00', '', '2022-10-24 18:44:27.910894+00', '', null, '', '', null, '2022-10-24 18:44:49.804272+00', '{"provider": "email", "providers": ["email"]}', '{}', null, '2022-10-24 18:44:27.908407+00', '2022-10-24 18:44:49.806447+00', null, null, '', '', null, default, '', 0, NULL, '', null);
-
-insert into auth.users
-    values ('00000000-0000-0000-0000-000000000000', 'b6d21aab-58ec-4122-be89-ca6355dc52f5', 'authenticated', 'authenticated', 'admin@access.com', '$2a$10$2GNivJp/KeQAPMYdkKNzNeZcquz2OPqYAPO31WlZ.23c3kSNNwh1q', '2022-10-24 18:45:28.991862+00', '2022-10-24 18:45:07.465984+00', '', '2022-10-24 18:45:07.465984+00', '', null, '', '', null, '2022-10-24 18:45:28.992415+00', '{"provider": "email", "providers": ["email"]}', '{}', null, '2022-10-24 18:45:07.462593+00', '2022-10-24 18:45:28.9943+00', null, null, '', '', null, default, '', 0, NULL, '', null);
+    values ('00000000-0000-0000-0000-000000000000', 'b6d21aab-58ec-4122-be89-ca6355dc52f5', 'authenticated', 'authenticated', 'admin@access.com', '$2a$10$2GNivJp/KeQAPMYdkKNzNeZcquz2OPqYAPO31WlZ.23c3kSNNwh1q', '2022-10-24 18:45:28.991862+00', '2022-10-24 18:45:07.465984+00', '', '2022-10-24 18:45:07.465984+00', '', null, '', '', null, '2022-10-24 18:45:28.992415+00', '{"provider": "email", "providers": ["email"]}', '{"appRole": "admin"}', null, '2022-10-24 18:45:07.462593+00', '2022-10-24 19:35:24.908825+00', null, null, '', '', null, default, '', 0, NULL, '', null);
 
 insert into app_user (email, role)
     values ('appuser1@access.com', 'customer'), ('appuser2@access.com', 'customer'), ('admin@access.com', 'admin');

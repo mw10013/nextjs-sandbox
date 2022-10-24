@@ -5,6 +5,19 @@ import { findUniqueAccessHub } from "../../db/find_unique_access_hub.queries";
 import { findAppUserCounts } from "../../db/access.queries";
 
 export const getServerSideProps = async () => {
+  for (const { id, appRole } of [
+    { id: "f47bfe76-134c-4b27-859f-8007451a2522", appRole: "customer" },
+    { id: "733e54ae-c9dc-4b9a-94d0-764fbd1bd76e", appRole: "customer" },
+    { id: "b6d21aab-58ec-4122-be89-ca6355dc52f5", appRole: "admin" },
+  ]) {
+    const { data, error } = await supabaseAdminClient.auth.admin.updateUserById(
+      id,
+      { user_metadata: { appRole } }
+    );
+    console.log(data);
+    if (error) throw error;
+  }
+
   const appUserCounts = await findAppUserCounts.run(undefined, pgPool);
   const hub = await findUniqueAccessHub.run({ access_hub_id: 1 }, pgPool);
   // const {
