@@ -54,6 +54,12 @@ Uses pnpm.
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Seeding
+
+- [Reddit seeding auth.users](https://www.reddit.com/r/Supabase/comments/uy8lku/comment/iak69o2/)
+- [Github seeding auth.user](https://github.com/supabase/supabase/discussions/5043)
+- pg_dump -v --data-only --inserts --schema auth -f db/auth_data.pgsql postgresql://postgres:postgres@localhost:54322
+
 ## Access Prisma Database
 
 ```bash
