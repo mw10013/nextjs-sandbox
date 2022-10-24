@@ -1,3 +1,4 @@
+-- Not pgtyped since it does not have .sql extension.
 select access_user_id,
     access_user.name,
     access_hub_id,
@@ -108,3 +109,4 @@ from access_hub ah
     join access_point ap using (access_hub_id)
 where ah.app_user_id = 1
 group by ah.access_hub_id;
+

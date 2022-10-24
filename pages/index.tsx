@@ -5,14 +5,9 @@ import Link from "next/link";
 
 const cards = [
   {
-    href: "/sandbox/supabase_client_page",
-    title: "Supabase Client Page",
-    description: "Sandbox for supabase client",
-  },
-  {
-    href: "/chinook/basic",
-    title: "Basic Chinook",
-    description: "pgtyped with pg",
+    href: "/sandbox/users",
+    title: "Users",
+    description: "Display supabase users.",
   },
   {
     href: "/sandbox/auth-helpers-login-form",
@@ -23,11 +18,6 @@ const cards = [
     href: "/middleware-protected",
     title: "Middleware Protected",
     description: "Uses auth-helpers",
-  },
-  {
-    href: "/sandbox/users",
-    title: "Users",
-    description: "Display supabase users.",
   },
   { href: "/sandbox/fee", title: "Fee", description: "Simple fee page." },
   { href: "/sandbox/fi", title: "Fi", description: "Simple fi page." },

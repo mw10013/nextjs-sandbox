@@ -1,3 +1,4 @@
+-- Not pgtyped since it does not have .sql extension.
 begin;
 
 create table app_user (
