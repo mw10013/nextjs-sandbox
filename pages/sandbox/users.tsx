@@ -2,9 +2,11 @@ import { InferGetServerSidePropsType } from "next";
 import { supabaseAdminClient } from "../../utils/supabaseClient";
 import { pgPool } from "../../db";
 import { findUniqueAccessHub } from "../../db/find_unique_access_hub.queries";
+import { findAppUserCounts } from "../../db/access.queries";
 
 export const getServerSideProps = async () => {
-  const result = await findUniqueAccessHub.run({ access_hub_id: 1 }, pgPool);
+  const appUserCounts = await findAppUserCounts.run(undefined, pgPool);
+  const hub = await findUniqueAccessHub.run({ access_hub_id: 1 }, pgPool);
   // const {
   //   data: { user },
   //   error: createUserError,
@@ -21,23 +23,22 @@ export const getServerSideProps = async () => {
   if (listUsersError) throw listUsersError;
   return {
     props: {
-      result,
-      data: users,
-      // user,
+      appUserCounts,
+      hub,
       users,
     },
   };
 };
 
 function Page({
-  // user,
-  result,
+  appUserCounts,
+  hub,
   users,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
     <div>
-      {/* <pre>{JSON.stringify(user, null, 2)}</pre> */}
-      <pre>{JSON.stringify(result, null, 2)}</pre>
+      <pre>{JSON.stringify(appUserCounts, null, 2)}</pre>
+      <pre>{JSON.stringify(hub, null, 2)}</pre>
       <pre>{JSON.stringify(users, null, 2)}</pre>
     </div>
   );
