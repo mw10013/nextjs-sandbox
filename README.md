@@ -47,6 +47,13 @@ Uses pnpm.
 - pnpm supabase gen types typescript --local > DatabaseDefinitions.ts
 - psql postgresql://postgres:postgres@localhost:54322/postgres
 
+## pgtyped
+
+- pnpm exec pgtyped -w -c pgtyped.json
+- psql postgresql://postgres:postgres@localhost:54322/postgres
+
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
 ## Access Prisma Database
 
 ```bash
@@ -56,47 +63,6 @@ pg_restore -v -d postgresql://postgres:postgres@localhost:54322/access_prisma ac
 
 - pg_restore -v --schema-only --file access_prisma/access_prisma_schema_20221015.sql access/access_db_20221015.dump
 - pg_restore -v --data-only --file access_prisma/access_prisma_data_20221015.sql access_prisma/access_prisma_db_20221015.dump
-
-## Chinook Sample Database
-
-Unable to get pgloader on debian/wsl working with supabase postgresql in windows docker.
-
-- https://wasm.supabase.com/
-- alter user postgres with password 'postgres';
-- create database chinook;
-- Network | Start
-- Status at bottom of page (port will be different0): psql postgres://postgres@proxy.wasm.supabase.com:6055
-- psql postgres://postgres:postgres@proxy.wasm.supabase.com:6055/chinook
-- docker run --rm -it dimitri/pgloader:latest pgloader --verbose https://github.com/lerocha/chinook-database/raw/master/ChinookDatabase/DataSources/Chinook_Sqlite_AutoIncrementPKs.sqlite postgres://postgres:postgres@proxy.wasm.supabase.com:6055/chinook
-- pg_dump -Fc -v -f chinook_db.dump postgres://postgres:postgres@proxy.wasm.supabase.com:6055/chinook
-- pg_dump -v -f chinook_db.sql postgres://postgres:postgres@proxy.wasm.supabase.com:6055/chinook
-- psql postgresql://postgres:postgres@localhost:54322/postgres
-- create database chinook;
-- pg_restore -v -d postgresql://postgres:postgres@localhost:54322/chinook chinook_db.dump
-- pg_restore -v -d postgresql://postgres:postgres@localhost:54322 --create chinook_db.dump
-- pg_dump -v --data-only --inserts -f chinook_db_data.sql postgresql://postgres:postgres@localhost:54322/chinook
-- pg_restore -v -d postgresql://postgres:postgres@localhost:54322/postgres --schema-only chinook_db.dump
-- psql postgresql://postgres:postgres@localhost:54322/chinook
-- select genre.name, count(\*) as count from genre left join track using(genreid) group by genre.name order by count desc;
-
-## Factbook Database
-
-- postgresql://postgres:postgres@localhost:54322/postgres
-- create database factbook;
-  
-## F1DB
-
-- https://raw.githubusercontent.com/tomredsky/f1db/master/f1db_postgres.sql
-- replace _id with id
-- remove _ from table names: constructor_results, constructor_standings, driver_standings, lap_times, pit_stops
-- https://github.com/mikebranski/the-art-of-postgresql-docker
-- psql postgresql://postgres:postgres@localhost:54322/postgres
-- create database f1db;
-- \c f1db
-- \i f1db/f1db_dump.sql
-- ALTER DATABASE f1db SET search_path TO f1db, public; ?
-- pg_dump -Fc -v -f f1db.dump postgresql://postgres:postgres@localhost:54322/f1db
-- psql postgresql://postgres:postgres@localhost:54322/f1db
 
 ## Supabase Profiles Table
 
@@ -129,13 +95,6 @@ create policy "Users can update own profile."
   using ( auth.uid() = id );
 
 ```
-
-## pgtyped
-
-- pnpm exec pgtyped -w -c pgtyped.json
-- psql postgresql://postgres:postgres@localhost:54322/postgres
-
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
 

@@ -9,284 +9,142 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
-      artist: {
+      app_user: {
         Row: {
-          name: string | null;
-          artistid: number;
+          email: string;
+          role: string;
+          app_user_id: number;
+          created_at: string;
         };
         Insert: {
-          name?: string | null;
-          artistid?: number;
+          email: string;
+          role: string;
+          app_user_id?: number;
+          created_at?: string;
         };
         Update: {
-          name?: string | null;
-          artistid?: number;
+          email?: string;
+          role?: string;
+          app_user_id?: number;
+          created_at?: string;
         };
       };
-      album: {
+      access_user: {
         Row: {
-          title: string | null;
-          artistid: number | null;
-          albumid: number;
+          name: string;
+          code: string;
+          activate_code_at: string | null;
+          expire_code_at: string | null;
+          app_user_id: number;
+          access_user_id: number;
+          description: string;
         };
         Insert: {
-          title?: string | null;
-          artistid?: number | null;
-          albumid?: number;
+          name: string;
+          code: string;
+          activate_code_at?: string | null;
+          expire_code_at?: string | null;
+          app_user_id: number;
+          access_user_id?: number;
+          description?: string;
         };
         Update: {
-          title?: string | null;
-          artistid?: number | null;
-          albumid?: number;
+          name?: string;
+          code?: string;
+          activate_code_at?: string | null;
+          expire_code_at?: string | null;
+          app_user_id?: number;
+          access_user_id?: number;
+          description?: string;
         };
       };
-      employee: {
+      access_hub: {
         Row: {
-          lastname: string | null;
-          firstname: string | null;
-          title: string | null;
-          reportsto: number | null;
-          birthdate: string | null;
-          hiredate: string | null;
-          address: string | null;
-          city: string | null;
-          state: string | null;
-          country: string | null;
-          postalcode: string | null;
-          phone: string | null;
-          fax: string | null;
-          email: string | null;
-          employeeid: number;
+          heartbeat_at: string | null;
+          app_user_id: number;
+          access_hub_id: number;
+          name: string;
+          description: string;
+          api_token: string;
         };
         Insert: {
-          lastname?: string | null;
-          firstname?: string | null;
-          title?: string | null;
-          reportsto?: number | null;
-          birthdate?: string | null;
-          hiredate?: string | null;
-          address?: string | null;
-          city?: string | null;
-          state?: string | null;
-          country?: string | null;
-          postalcode?: string | null;
-          phone?: string | null;
-          fax?: string | null;
-          email?: string | null;
-          employeeid?: number;
+          heartbeat_at?: string | null;
+          app_user_id: number;
+          access_hub_id?: number;
+          name?: string;
+          description?: string;
+          api_token?: string;
         };
         Update: {
-          lastname?: string | null;
-          firstname?: string | null;
-          title?: string | null;
-          reportsto?: number | null;
-          birthdate?: string | null;
-          hiredate?: string | null;
-          address?: string | null;
-          city?: string | null;
-          state?: string | null;
-          country?: string | null;
-          postalcode?: string | null;
-          phone?: string | null;
-          fax?: string | null;
-          email?: string | null;
-          employeeid?: number;
+          heartbeat_at?: string | null;
+          app_user_id?: number;
+          access_hub_id?: number;
+          name?: string;
+          description?: string;
+          api_token?: string;
         };
       };
-      customer: {
+      access_point: {
         Row: {
-          firstname: string | null;
-          lastname: string | null;
-          company: string | null;
-          address: string | null;
-          city: string | null;
-          state: string | null;
-          country: string | null;
-          postalcode: string | null;
-          phone: string | null;
-          fax: string | null;
-          email: string | null;
-          supportrepid: number | null;
-          customerid: number;
+          name: string;
+          position: number;
+          access_hub_id: number;
+          access_point_id: number;
+          description: string;
         };
         Insert: {
-          firstname?: string | null;
-          lastname?: string | null;
-          company?: string | null;
-          address?: string | null;
-          city?: string | null;
-          state?: string | null;
-          country?: string | null;
-          postalcode?: string | null;
-          phone?: string | null;
-          fax?: string | null;
-          email?: string | null;
-          supportrepid?: number | null;
-          customerid?: number;
+          name: string;
+          position: number;
+          access_hub_id: number;
+          access_point_id?: number;
+          description?: string;
         };
         Update: {
-          firstname?: string | null;
-          lastname?: string | null;
-          company?: string | null;
-          address?: string | null;
-          city?: string | null;
-          state?: string | null;
-          country?: string | null;
-          postalcode?: string | null;
-          phone?: string | null;
-          fax?: string | null;
-          email?: string | null;
-          supportrepid?: number | null;
-          customerid?: number;
+          name?: string;
+          position?: number;
+          access_hub_id?: number;
+          access_point_id?: number;
+          description?: string;
         };
       };
-      invoice: {
+      access_point_to_access_user: {
         Row: {
-          customerid: number | null;
-          invoicedate: string | null;
-          billingaddress: string | null;
-          billingcity: string | null;
-          billingstate: string | null;
-          billingcountry: string | null;
-          billingpostalcode: string | null;
-          total: number | null;
-          invoiceid: number;
+          access_point_id: number;
+          access_user_id: number;
         };
         Insert: {
-          customerid?: number | null;
-          invoicedate?: string | null;
-          billingaddress?: string | null;
-          billingcity?: string | null;
-          billingstate?: string | null;
-          billingcountry?: string | null;
-          billingpostalcode?: string | null;
-          total?: number | null;
-          invoiceid?: number;
+          access_point_id: number;
+          access_user_id: number;
         };
         Update: {
-          customerid?: number | null;
-          invoicedate?: string | null;
-          billingaddress?: string | null;
-          billingcity?: string | null;
-          billingstate?: string | null;
-          billingcountry?: string | null;
-          billingpostalcode?: string | null;
-          total?: number | null;
-          invoiceid?: number;
+          access_point_id?: number;
+          access_user_id?: number;
         };
       };
-      invoiceline: {
+      access_event: {
         Row: {
-          invoiceid: number | null;
-          trackid: number | null;
-          unitprice: number | null;
-          quantity: number | null;
-          invoicelineid: number;
+          at: string;
+          access: string;
+          code: string;
+          access_user_id: number | null;
+          access_point_id: number;
+          access_event_id: number;
         };
         Insert: {
-          invoiceid?: number | null;
-          trackid?: number | null;
-          unitprice?: number | null;
-          quantity?: number | null;
-          invoicelineid?: number;
+          at: string;
+          access: string;
+          code: string;
+          access_user_id?: number | null;
+          access_point_id: number;
+          access_event_id?: number;
         };
         Update: {
-          invoiceid?: number | null;
-          trackid?: number | null;
-          unitprice?: number | null;
-          quantity?: number | null;
-          invoicelineid?: number;
-        };
-      };
-      track: {
-        Row: {
-          name: string | null;
-          albumid: number | null;
-          mediatypeid: number | null;
-          genreid: number | null;
-          composer: string | null;
-          milliseconds: number | null;
-          bytes: number | null;
-          unitprice: number | null;
-          trackid: number;
-        };
-        Insert: {
-          name?: string | null;
-          albumid?: number | null;
-          mediatypeid?: number | null;
-          genreid?: number | null;
-          composer?: string | null;
-          milliseconds?: number | null;
-          bytes?: number | null;
-          unitprice?: number | null;
-          trackid?: number;
-        };
-        Update: {
-          name?: string | null;
-          albumid?: number | null;
-          mediatypeid?: number | null;
-          genreid?: number | null;
-          composer?: string | null;
-          milliseconds?: number | null;
-          bytes?: number | null;
-          unitprice?: number | null;
-          trackid?: number;
-        };
-      };
-      playlist: {
-        Row: {
-          name: string | null;
-          playlistid: number;
-        };
-        Insert: {
-          name?: string | null;
-          playlistid?: number;
-        };
-        Update: {
-          name?: string | null;
-          playlistid?: number;
-        };
-      };
-      playlisttrack: {
-        Row: {
-          playlistid: number;
-          trackid: number;
-        };
-        Insert: {
-          playlistid: number;
-          trackid: number;
-        };
-        Update: {
-          playlistid?: number;
-          trackid?: number;
-        };
-      };
-      genre: {
-        Row: {
-          name: string | null;
-          genreid: number;
-        };
-        Insert: {
-          name?: string | null;
-          genreid?: number;
-        };
-        Update: {
-          name?: string | null;
-          genreid?: number;
-        };
-      };
-      mediatype: {
-        Row: {
-          name: string | null;
-          mediatypeid: number;
-        };
-        Insert: {
-          name?: string | null;
-          mediatypeid?: number;
-        };
-        Update: {
-          name?: string | null;
-          mediatypeid?: number;
+          at?: string;
+          access?: string;
+          code?: string;
+          access_user_id?: number | null;
+          access_point_id?: number;
+          access_event_id?: number;
         };
       };
     };
@@ -294,10 +152,7 @@ export interface Database {
       [_ in never]: never;
     };
     Functions: {
-      get_all_albums: {
-        Args: { artistid: number; OUT: unknown; OUT: unknown };
-        Returns: Record<string, unknown>[];
-      };
+      [_ in never]: never;
     };
     Enums: {
       [_ in never]: never;

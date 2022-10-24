@@ -1,13 +1,24 @@
-SET statement_timeout = 0;
-SET lock_timeout = 0;
-SET idle_in_transaction_session_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = on;
-SELECT pg_catalog.set_config('search_path', '', false);
-SET check_function_bodies = false;
-SET xmloption = content;
-SET client_min_messages = warning;
-SET row_security = off;
+-- settings from pg_dump
+set statement_timeout = 0;
+
+set lock_timeout = 0;
+
+set idle_in_transaction_session_timeout = 0;
+
+set client_encoding = 'UTF8';
+
+set standard_conforming_strings = on;
+
+-- SELECT pg_catalog.set_config('search_path', '', false);
+select pg_catalog.set_config('search_path', 'public', false);
+
+set check_function_bodies = false;
+
+set xmloption = content;
+
+set client_min_messages = warning;
+
+set row_security = off;
 
 insert into app_user (email, role)
     values ('appuser1@access.com', 'customer'), ('appuser2@access.com', 'customer'), ('admin@access.com', 'admin');
@@ -52,3 +63,4 @@ where (access_user.name = 'master')
         and access_hub.name = 'Hub 1')
     or (access_user.name = 'guest2'
         and access_hub.name = 'Hub 2');
+
