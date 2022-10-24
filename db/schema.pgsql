@@ -1,12 +1,7 @@
 -- Not pgtyped since it does not have .sql extension.
+-- Schema copied from schema_seed.pgsql.
+-- Commits transaction.
 begin;
-
-create table app_user (
-    app_user_id serial primary key,
-    email text not null unique check (email <> ''),
-    role text not null check (role = 'customer' or role = 'admin'),
-    created_at timestamptz default now() not null
-);
 
 -- deleted_at?
 create table access_user (
@@ -16,14 +11,13 @@ create table access_user (
     code text not null check (code <> ''),
     activate_code_at timestamptz,
     expire_code_at timestamptz,
-    app_user_id integer not null references app_user on delete cascade,
-    unique (app_user_id, name),
-    unique (app_user_id, code)
+    auth_user_id uuid not null references auth.users on delete cascade,
+    unique (auth_user_id, name),
+    unique (auth_user_id, code)
 );
 
-create index on access_user (app_user_id);
+create index on access_user (auth_user_id);
 
--- create schema if not exists access;
 create table access_hub (
     access_hub_id serial primary key,
     name text default 'Hub' ::text not null check (name <> ''),
@@ -31,10 +25,10 @@ create table access_hub (
     heartbeat_at timestamptz,
     -- unique with no default?
     api_token text default ''::text not null,
-    app_user_id integer not null references app_user on delete cascade
+    auth_user_id uuid not null references auth.users on delete cascade
 );
 
-create index on access_hub (app_user_id);
+create index on access_hub (auth_user_id);
 
 create table access_point (
     access_point_id serial primary key,

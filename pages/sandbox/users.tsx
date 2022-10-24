@@ -2,9 +2,10 @@ import { InferGetServerSidePropsType } from "next";
 import { supabaseAdminClient } from "../../utils/supabaseClient";
 import { pgPool } from "../../db";
 import { findUniqueAccessHub } from "../../db/find_unique_access_hub.queries";
-import { findAppUserCounts } from "../../db/access.queries";
+import { findAuthUserCounts } from "../../db/access.queries";
 
 export const getServerSideProps = async () => {
+  /*
   for (const { id, appRole } of [
     { id: "f47bfe76-134c-4b27-859f-8007451a2522", appRole: "customer" },
     { id: "733e54ae-c9dc-4b9a-94d0-764fbd1bd76e", appRole: "customer" },
@@ -17,8 +18,8 @@ export const getServerSideProps = async () => {
     console.log(data);
     if (error) throw error;
   }
-
-  const appUserCounts = await findAppUserCounts.run(undefined, pgPool);
+*/
+  const authUserCounts = await findAuthUserCounts.run(undefined, pgPool);
   const hub = await findUniqueAccessHub.run({ access_hub_id: 1 }, pgPool);
   // const {
   //   data: { user },
@@ -36,7 +37,7 @@ export const getServerSideProps = async () => {
   if (listUsersError) throw listUsersError;
   return {
     props: {
-      appUserCounts,
+      authUserCounts,
       hub,
       users,
     },
@@ -44,13 +45,13 @@ export const getServerSideProps = async () => {
 };
 
 function Page({
-  appUserCounts,
+  authUserCounts,
   hub,
   users,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
     <div>
-      <pre>{JSON.stringify(appUserCounts, null, 2)}</pre>
+      <pre>{JSON.stringify(authUserCounts, null, 2)}</pre>
       <pre>{JSON.stringify(hub, null, 2)}</pre>
       <pre>{JSON.stringify(users, null, 2)}</pre>
     </div>
