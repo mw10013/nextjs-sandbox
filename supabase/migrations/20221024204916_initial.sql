@@ -1,161 +1,60 @@
-create sequence "public"."access_event_access_event_id_seq";
-
-create sequence "public"."access_hub_access_hub_id_seq";
-
-create sequence "public"."access_point_access_point_id_seq";
-
-create sequence "public"."access_user_access_user_id_seq";
-
-create table "public"."access_event" (
-    "access_event_id" integer not null default nextval('access_event_access_event_id_seq'::regclass),
-    "at" timestamp with time zone not null,
-    "access" text not null,
-    "code" text not null,
-    "access_user_id" integer,
-    "access_point_id" integer not null
+create table access_user (
+    access_user_id serial primary key,
+    name text not null check (name <> ''),
+    description text default ''::text not null,
+    code text not null check (code <> ''),
+    activate_code_at timestamptz,
+    expire_code_at timestamptz,
+    auth_user_id uuid not null references auth.users on delete cascade,
+    unique (auth_user_id, name),
+    unique (auth_user_id, code)
 );
 
+create index on access_user (auth_user_id);
 
-create table "public"."access_hub" (
-    "access_hub_id" integer not null default nextval('access_hub_access_hub_id_seq'::regclass),
-    "name" text not null default 'Hub'::text,
-    "description" text not null default ''::text,
-    "heartbeat_at" timestamp with time zone,
-    "api_token" text not null default ''::text,
-    "auth_user_id" uuid not null
+create table access_hub (
+    access_hub_id serial primary key,
+    name text default 'Hub' ::text not null check (name <> ''),
+    description text default ''::text not null,
+    heartbeat_at timestamptz,
+    -- unique with no default?
+    api_token text default ''::text not null,
+    auth_user_id uuid not null references auth.users on delete cascade
 );
 
+create index on access_hub (auth_user_id);
 
-create table "public"."access_point" (
-    "access_point_id" integer not null default nextval('access_point_access_point_id_seq'::regclass),
-    "name" text not null,
-    "description" text not null default ''::text,
-    "position" integer not null,
-    "access_hub_id" integer not null
+create table access_point (
+    access_point_id serial primary key,
+    name text not null check (name <> ''),
+    description text default ''::text not null,
+    position integer not null check (position > 0),
+    access_hub_id integer not null references access_hub on delete cascade,
+    unique (access_hub_id, position)
 );
 
+create index on access_point (access_hub_id);
 
-create table "public"."access_point_to_access_user" (
-    "access_point_id" integer not null,
-    "access_user_id" integer not null
+create table access_point_to_access_user (
+    access_point_id integer not null references access_point on delete cascade,
+    access_user_id integer not null references access_user on delete cascade,
+    primary key (access_point_id, access_user_id)
 );
 
+create index on access_point_to_access_user (access_point_id);
 
-create table "public"."access_user" (
-    "access_user_id" integer not null default nextval('access_user_access_user_id_seq'::regclass),
-    "name" text not null,
-    "description" text not null default ''::text,
-    "code" text not null,
-    "activate_code_at" timestamp with time zone,
-    "expire_code_at" timestamp with time zone,
-    "auth_user_id" uuid not null
+create index on access_point_to_access_user (access_user_id);
+
+create table access_event (
+    access_event_id serial primary key,
+    at timestamptz not null,
+    access text not null check (access = 'grant' or access = 'deny'),
+    code text not null,
+    access_user_id integer references access_user (access_user_id) on delete cascade,
+    access_point_id integer not null references access_point (access_point_id) on delete cascade
 );
 
+create index on access_event (access_user_id);
 
-alter sequence "public"."access_event_access_event_id_seq" owned by "public"."access_event"."access_event_id";
-
-alter sequence "public"."access_hub_access_hub_id_seq" owned by "public"."access_hub"."access_hub_id";
-
-alter sequence "public"."access_point_access_point_id_seq" owned by "public"."access_point"."access_point_id";
-
-alter sequence "public"."access_user_access_user_id_seq" owned by "public"."access_user"."access_user_id";
-
-CREATE INDEX access_event_access_point_id_idx ON public.access_event USING btree (access_point_id);
-
-CREATE INDEX access_event_access_user_id_idx ON public.access_event USING btree (access_user_id);
-
-CREATE UNIQUE INDEX access_event_pkey ON public.access_event USING btree (access_event_id);
-
-CREATE INDEX access_hub_auth_user_id_idx ON public.access_hub USING btree (auth_user_id);
-
-CREATE UNIQUE INDEX access_hub_pkey ON public.access_hub USING btree (access_hub_id);
-
-CREATE INDEX access_point_access_hub_id_idx ON public.access_point USING btree (access_hub_id);
-
-CREATE UNIQUE INDEX access_point_access_hub_id_position_key ON public.access_point USING btree (access_hub_id, "position");
-
-CREATE UNIQUE INDEX access_point_pkey ON public.access_point USING btree (access_point_id);
-
-CREATE UNIQUE INDEX access_point_to_access_user_access_point_id_access_user_id_key ON public.access_point_to_access_user USING btree (access_point_id, access_user_id);
-
-CREATE INDEX access_point_to_access_user_access_point_id_idx ON public.access_point_to_access_user USING btree (access_point_id);
-
-CREATE INDEX access_point_to_access_user_access_user_id_idx ON public.access_point_to_access_user USING btree (access_user_id);
-
-CREATE UNIQUE INDEX access_user_auth_user_id_code_key ON public.access_user USING btree (auth_user_id, code);
-
-CREATE INDEX access_user_auth_user_id_idx ON public.access_user USING btree (auth_user_id);
-
-CREATE UNIQUE INDEX access_user_auth_user_id_name_key ON public.access_user USING btree (auth_user_id, name);
-
-CREATE UNIQUE INDEX access_user_pkey ON public.access_user USING btree (access_user_id);
-
-alter table "public"."access_event" add constraint "access_event_pkey" PRIMARY KEY using index "access_event_pkey";
-
-alter table "public"."access_hub" add constraint "access_hub_pkey" PRIMARY KEY using index "access_hub_pkey";
-
-alter table "public"."access_point" add constraint "access_point_pkey" PRIMARY KEY using index "access_point_pkey";
-
-alter table "public"."access_user" add constraint "access_user_pkey" PRIMARY KEY using index "access_user_pkey";
-
-alter table "public"."access_event" add constraint "access_event_access_check" CHECK (((access = 'grant'::text) OR (access = 'deny'::text))) not valid;
-
-alter table "public"."access_event" validate constraint "access_event_access_check";
-
-alter table "public"."access_event" add constraint "access_event_access_point_id_fkey" FOREIGN KEY (access_point_id) REFERENCES access_point(access_point_id) ON DELETE CASCADE not valid;
-
-alter table "public"."access_event" validate constraint "access_event_access_point_id_fkey";
-
-alter table "public"."access_event" add constraint "access_event_access_user_id_fkey" FOREIGN KEY (access_user_id) REFERENCES access_user(access_user_id) ON DELETE CASCADE not valid;
-
-alter table "public"."access_event" validate constraint "access_event_access_user_id_fkey";
-
-alter table "public"."access_hub" add constraint "access_hub_auth_user_id_fkey" FOREIGN KEY (auth_user_id) REFERENCES auth.users(id) ON DELETE CASCADE not valid;
-
-alter table "public"."access_hub" validate constraint "access_hub_auth_user_id_fkey";
-
-alter table "public"."access_hub" add constraint "access_hub_name_check" CHECK ((name <> ''::text)) not valid;
-
-alter table "public"."access_hub" validate constraint "access_hub_name_check";
-
-alter table "public"."access_point" add constraint "access_point_access_hub_id_fkey" FOREIGN KEY (access_hub_id) REFERENCES access_hub(access_hub_id) ON DELETE CASCADE not valid;
-
-alter table "public"."access_point" validate constraint "access_point_access_hub_id_fkey";
-
-alter table "public"."access_point" add constraint "access_point_access_hub_id_position_key" UNIQUE using index "access_point_access_hub_id_position_key";
-
-alter table "public"."access_point" add constraint "access_point_name_check" CHECK ((name <> ''::text)) not valid;
-
-alter table "public"."access_point" validate constraint "access_point_name_check";
-
-alter table "public"."access_point" add constraint "access_point_position_check" CHECK (("position" > 0)) not valid;
-
-alter table "public"."access_point" validate constraint "access_point_position_check";
-
-alter table "public"."access_point_to_access_user" add constraint "access_point_to_access_user_access_point_id_access_user_id_key" UNIQUE using index "access_point_to_access_user_access_point_id_access_user_id_key";
-
-alter table "public"."access_point_to_access_user" add constraint "access_point_to_access_user_access_point_id_fkey" FOREIGN KEY (access_point_id) REFERENCES access_point(access_point_id) ON DELETE CASCADE not valid;
-
-alter table "public"."access_point_to_access_user" validate constraint "access_point_to_access_user_access_point_id_fkey";
-
-alter table "public"."access_point_to_access_user" add constraint "access_point_to_access_user_access_user_id_fkey" FOREIGN KEY (access_user_id) REFERENCES access_user(access_user_id) ON DELETE CASCADE not valid;
-
-alter table "public"."access_point_to_access_user" validate constraint "access_point_to_access_user_access_user_id_fkey";
-
-alter table "public"."access_user" add constraint "access_user_auth_user_id_code_key" UNIQUE using index "access_user_auth_user_id_code_key";
-
-alter table "public"."access_user" add constraint "access_user_auth_user_id_fkey" FOREIGN KEY (auth_user_id) REFERENCES auth.users(id) ON DELETE CASCADE not valid;
-
-alter table "public"."access_user" validate constraint "access_user_auth_user_id_fkey";
-
-alter table "public"."access_user" add constraint "access_user_auth_user_id_name_key" UNIQUE using index "access_user_auth_user_id_name_key";
-
-alter table "public"."access_user" add constraint "access_user_code_check" CHECK ((code <> ''::text)) not valid;
-
-alter table "public"."access_user" validate constraint "access_user_code_check";
-
-alter table "public"."access_user" add constraint "access_user_name_check" CHECK ((name <> ''::text)) not valid;
-
-alter table "public"."access_user" validate constraint "access_user_name_check";
-
+create index on access_event (access_point_id);
 

@@ -43,7 +43,7 @@ create index on access_point (access_hub_id);
 create table access_point_to_access_user (
     access_point_id integer not null references access_point on delete cascade,
     access_user_id integer not null references access_user on delete cascade,
-    unique (access_point_id, access_user_id)
+    primary key (access_point_id, access_user_id)
 );
 
 create index on access_point_to_access_user (access_point_id);
