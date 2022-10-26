@@ -14,5 +14,32 @@ create function test1_add_stuff (int, int, int, int)
 
 select test1_add_stuff (1, 2, 3, 4);
 
+create or replace function asterisks (n int)
+    returns setof text
+    language sql
+    immutable strict PARALLEL SAFE
+begin
+    ATOMIC
+    select repeat('*', g)
+    from generate_series(1, n) g;
+
+end;
+
+select *
+from asterisks (5);
+
+create or replace function get_access_hub ()
+    returns table (
+        access_hub_id access_hub.access_hub_id%type)
+begin
+    atomic
+    select access_hub_id
+    from access_hub;
+
+    end;
+
+select *
+from get_access_hub ();
+
 rollback;
 
