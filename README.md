@@ -22,6 +22,9 @@ Uses pnpm.
 - pnpm add -D @pgtyped/cli @pgtyped/query
 - pnpm add pg
 - pnpm add -D @types/pg
+- pnpm remove/add next react@latest react-dom@latest
+- pnpm remove/add -D eslint-config-next@latest
+
 
 [Prettier](https://prettier.io/docs/en/install.html)
 

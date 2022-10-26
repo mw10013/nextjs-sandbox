@@ -101,7 +101,7 @@ const LoginPage: NextPage = () => {
   return (
     <>
       <Link href="/api/auth/logout">
-        <a>Logout</a>
+        Logout
       </Link>
       {isLoading ? <h1>Loading...</h1> : <h1>Loaded!</h1>}
       <p>user:</p>

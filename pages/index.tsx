@@ -63,11 +63,9 @@ function Card({
   description: string;
 }) {
   return (
-    <Link href={href}>
-      <a className="m-4 max-w-[300px] rounded-[10px] border p-[1.5rem] hover:border-indigo-500 hover:text-indigo-500">
+    <Link href={href}className="m-4 max-w-[300px] rounded-[10px] border p-[1.5rem] hover:border-indigo-500 hover:text-indigo-500">
         <h2 className="mb-4 text-2xl">{title} &rarr;</h2>
         <p className="text-xl leading-[1.5]">{description}</p>
-      </a>
     </Link>
   );
 }
