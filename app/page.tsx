@@ -1,7 +1,5 @@
-import type { NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
 
 const cards = [
   {
@@ -63,22 +61,19 @@ function Card({
   description: string;
 }) {
   return (
-    <Link href={href}className="m-4 max-w-[300px] rounded-[10px] border p-[1.5rem] hover:border-indigo-500 hover:text-indigo-500">
-        <h2 className="mb-4 text-2xl">{title} &rarr;</h2>
-        <p className="text-xl leading-[1.5]">{description}</p>
+    <Link
+      href={href}
+      className="m-4 max-w-[300px] rounded-[10px] border p-[1.5rem] hover:border-indigo-500 hover:text-indigo-500"
+    >
+      <h2 className="mb-4 text-2xl">{title} &rarr;</h2>
+      <p className="text-xl leading-[1.5]">{description}</p>
     </Link>
   );
 }
 
-const Home: NextPage = () => {
+export default async function Page() {
   return (
     <div className="px-8">
-      <Head>
-        <title>nextjs-sandbox</title>
-        <meta name="description" content="Sandbox for learning nextjs" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
       <main className="flex min-h-screen flex-1 flex-col items-center justify-center py-16">
         <h1 className="text-[4rem] leading-[1.15]">
           Welcome to{" "}
@@ -112,6 +107,4 @@ const Home: NextPage = () => {
       </footer>
     </div>
   );
-};
-
-export default Home;
+}
