@@ -8,19 +8,9 @@ const cards = [
     description: "Sandbox for db.",
   },
   {
-    href: "/sandbox/users",
-    title: "Users",
-    description: "Display supabase users.",
-  },
-  {
-    href: "/sandbox/auth-helpers-login-form",
-    title: "Auth Helpers Login Form",
-    description: "Uses auth-helpers",
-  },
-  {
-    href: "/middleware-protected",
-    title: "Middleware Protected",
-    description: "Uses auth-helpers",
+    href: "/supabase-sandbox",
+    title: "Supabase sandbox",
+    description: "Sandbox for supabase.",
   },
   {
     href: "/sandbox/simple-form",
@@ -41,16 +31,6 @@ const cards = [
     href: "/sandbox/simple-react-query-form",
     title: "Simple React Query Form",
     description: "Simple react query form.",
-  },
-  {
-    href: "/sandbox/simple-magic-login-form",
-    title: "Simple Magic Login Form",
-    description: "Simple magic login form.",
-  },
-  {
-    href: "/sandbox/supabase-auth-quickstart",
-    title: "Supabase Auth Quickstart",
-    description: "Supabase auth quickstart.",
   },
 ];
 

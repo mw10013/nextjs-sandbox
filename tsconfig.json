@@ -30,7 +30,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-  ],
+, "access_prisma/seed.ts_"  ],
   "exclude": [
     "node_modules"
   ]
