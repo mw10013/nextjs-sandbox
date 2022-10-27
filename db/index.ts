@@ -1,3 +1,4 @@
+import "server-only";
 import { Pool } from "pg";
 
 // https://www.prisma.io/docs/guides/database/troubleshooting-orm/help-articles/nextjs-prisma-client-dev-practices
