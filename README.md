@@ -27,7 +27,8 @@ Uses pnpm.
 - pnpm add pg-native
   -- this is required lazily by pg and should not actually be used
   -- will cause compilation error on install if postgres client lib not install but can ignore
-- pnpm add server-only  
+- pnpm add server-only 
+- pnpm add @heroicons/react 
 
 [Prettier](https://prettier.io/docs/en/install.html)
 
