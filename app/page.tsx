@@ -3,6 +3,11 @@ import Image from "next/image";
 
 const cards = [
   {
+    href: "/db-sandbox",
+    title: "DB sandbox",
+    description: "Sandbox for db.",
+  },
+  {
     href: "/sandbox/users",
     title: "Users",
     description: "Display supabase users.",
@@ -17,8 +22,6 @@ const cards = [
     title: "Middleware Protected",
     description: "Uses auth-helpers",
   },
-  { href: "/sandbox/fee", title: "Fee", description: "Simple fee page." },
-  { href: "/sandbox/fi", title: "Fi", description: "Simple fi page." },
   {
     href: "/sandbox/simple-form",
     title: "Simple Form",

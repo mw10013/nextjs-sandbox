@@ -1,5 +1,5 @@
 import { useUser } from "@supabase/auth-helpers-react";
-import { supabaseClient } from "@supabase/auth-helpers-nextjs";
+// import { supabaseClient } from "@supabase/auth-helpers-nextjs";
 import { SupabaseClient } from "@supabase/supabase-js";
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
@@ -27,11 +27,11 @@ function Auth({ supabaseClient }: { supabaseClient: SupabaseClient }) {
     <div className="mx-auto max-w-sm pt-8">
       <form
         onSubmit={handleSubmit(async ({ email }) => {
-          const { error } = await supabaseClient.auth.signIn({
-            email,
-          });
-          if (error) throw error;
-          alert("Check your email for the login link!");
+          // const { error } = await supabaseClient.auth.signIn({
+          //   email,
+          // });
+          // if (error) throw error;
+          alert("Implement: Check your email for the login link!");
         })}
       >
         <div>
@@ -78,32 +78,33 @@ function Auth({ supabaseClient }: { supabaseClient: SupabaseClient }) {
 }
 
 const LoginPage: NextPage = () => {
-  const { isLoading, user, error } = useUser();
+  // const { isLoading, user, error } = useUser();
+  const user = null;
   const [data, setData] = useState(null);
 
-  useEffect(() => {
-    async function loadData() {
-      const { data } = await supabaseClient.from("test").select("*").single();
-      setData(data);
-    }
-    if (user) loadData();
-  }, [user]);
+  // useEffect(() => {
+  //   async function loadData() {
+  //     const { data } = await supabaseClient.from("test").select("*").single();
+  //     setData(data);
+  //   }
+  //   if (user) loadData();
+  // }, [user]);
 
-  if (!user)
-    return (
-      <>
-        {error && <p>{error.message}</p>}
-        {isLoading ? <h1>Loading...</h1> : <h1>Loaded!</h1>}
-        <Auth supabaseClient={supabaseClient} />
-      </>
-    );
+  // if (!user)
+  //   return (
+  //     <>
+  //       {error && <p>{error.message}</p>}
+  //       {isLoading ? <h1>Loading...</h1> : <h1>Loaded!</h1>}
+  //       <Auth supabaseClient={supabaseClient} />
+  //     </>
+  //   );
 
   return (
     <>
       <Link href="/api/auth/logout">
         Logout
       </Link>
-      {isLoading ? <h1>Loading...</h1> : <h1>Loaded!</h1>}
+      {/* {isLoading ? <h1>Loading...</h1> : <h1>Loaded!</h1>} */}
       <p>user:</p>
       <pre>{JSON.stringify(user, null, 2)}</pre>
       <p>client-side data fetching with RLS</p>
