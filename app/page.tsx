@@ -13,6 +13,16 @@ const cards = [
     description: "Sandbox for supabase.",
   },
   {
+    href: "/access",
+    title: "Access",
+    description: "Access area",
+  },
+  {
+    href: "/admin",
+    title: "Admin",
+    description: "Admin area",
+  },
+  {
     href: "/sandbox/simple-form",
     title: "Simple Form",
     description: "Simple form.",
