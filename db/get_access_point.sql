@@ -2,7 +2,11 @@
 -- \set accessPointId 14
 -- \set accessHubId 4
 -- \set authUserId '\'733e54ae-c9dc-4b9a-94d0-764fbd1bd76e\''
-select access_point.*
+-- select access_point.*
+select access_point.access_point_id,
+    access_point.name,
+    access_point.position,
+    access_point.access_hub_id
 from access_point
     join access_hub using (access_hub_id)
     join auth.users u on u.id = auth_user_id
