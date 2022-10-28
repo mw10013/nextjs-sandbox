@@ -1,5 +1,5 @@
 /** Types generated for queries found in "db/find_deny_events.sql" */
-import { PreparedQuery } from "@pgtyped/query";
+import { PreparedQuery } from '@pgtyped/query';
 
 /** 'FindDenyEvents' parameters type */
 export type IFindDenyEventsParams = void;
@@ -20,11 +20,7 @@ export interface IFindDenyEventsQuery {
   result: IFindDenyEventsResult;
 }
 
-const findDenyEventsIR: any = {
-  usedParamSet: {},
-  params: [],
-  statement: "select *\nfrom access_event\nwhere access = 'deny'",
-};
+const findDenyEventsIR: any = {"usedParamSet":{},"params":[],"statement":"select *\nfrom access_event\nwhere access = 'deny'"};
 
 /**
  * Query generated from SQL:
@@ -34,7 +30,6 @@ const findDenyEventsIR: any = {
  * where access = 'deny'
  * ```
  */
-export const findDenyEvents = new PreparedQuery<
-  IFindDenyEventsParams,
-  IFindDenyEventsResult
->(findDenyEventsIR);
+export const findDenyEvents = new PreparedQuery<IFindDenyEventsParams,IFindDenyEventsResult>(findDenyEventsIR);
+
+
