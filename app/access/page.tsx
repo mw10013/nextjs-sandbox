@@ -1,3 +1,6 @@
 export default async function Page() {
-return <h1>Access Page</h1>
+return <div className="p-5">
+    
+    <h1>Access Page</h1>
+    </div>
 }

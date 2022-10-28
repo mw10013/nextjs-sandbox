@@ -10,15 +10,16 @@
     "format": "npx prettier --write ."
   },
   "dependencies": {
+    "@headlessui/react": "1.7.3",
     "@heroicons/react": "2.0.12",
-    "@hookform/resolvers": "2.9.8",
+    "@hookform/resolvers": "2.9.10",
     "@supabase/supabase-js": "2.0.0",
     "@tanstack/react-query": "4.3.4",
     "next": "13.0.0",
     "pg": "8.8.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-hook-form": "7.35.0",
+    "react-hook-form": "7.38.0",
     "server-only": "0.0.1",
     "zod": "3.19.1"
   },
@@ -28,8 +29,8 @@
     "@tailwindcss/forms": "0.5.3",
     "@types/node": "18.7.14",
     "@types/pg": "8.6.5",
-    "@types/react": "18.0.18",
-    "@types/react-dom": "18.0.6",
+    "@types/react": "18.0.24",
+    "@types/react-dom": "18.0.8",
     "@typescript-eslint/eslint-plugin": "5.36.1",
     "@typescript-eslint/parser": "5.36.1",
     "autoprefixer": "10.4.8",
@@ -43,7 +44,7 @@
     "prettier": "2.7.1",
     "prettier-plugin-tailwindcss": "0.1.13",
     "supabase": "1.11.3",
-    "tailwindcss": "3.1.8",
+    "tailwindcss": "3.2.1",
     "typescript": "4.8.2"
   }
 }

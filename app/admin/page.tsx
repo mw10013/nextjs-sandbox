@@ -1,3 +1,7 @@
 export default async function Page() {
-  return <h1>Admin Page</h1>;
+  return (
+    <div className="p-5">
+      <h1>Admin Page</h1>;
+    </div>
+  );
 }
