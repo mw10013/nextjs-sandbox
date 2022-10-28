@@ -1,19 +1,29 @@
 import { pgPool } from "../../db";
 import { findUniqueAccessHub } from "../../db/find_unique_access_hub.queries";
 import { findAuthUserCounts } from "../../db/access.queries";
+import { getAccessPoint } from "../../db/get_access_point.queries";
 
 async function fetchData() {
+  const accessPoint = await getAccessPoint.run(
+    {
+      accessPointId: 14,
+      accessHubId: 4,
+      authUserId: "733e54ae-c9dc-4b9a-94d0-764fbd1bd76e",
+    },
+    pgPool
+  );
   const authUserCounts = await findAuthUserCounts.run(undefined, pgPool);
   const hub = await findUniqueAccessHub.run({ access_hub_id: 1 }, pgPool);
 
-  return { authUserCounts, hub };
+  return { dt: new Date().toISOString(), accessPoint, authUserCounts, hub };
 }
 
 export default async function Page() {
-  const { authUserCounts, hub } = await fetchData();
+  const { dt, accessPoint, authUserCounts, hub } = await fetchData();
   return (
     <div>
-      <p>{new Date().toISOString()}</p>
+      <p>{dt}</p>
+      <pre>{JSON.stringify(accessPoint, null, 2)}</pre>
       <pre>{JSON.stringify(authUserCounts, null, 2)}</pre>
       <pre>{JSON.stringify(hub, null, 2)}</pre>
     </div>
