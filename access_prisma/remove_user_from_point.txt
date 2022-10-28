@@ -1,0 +1,31 @@
+await prisma.accessPoint.update({
+    where: { id: accessPoint.id },
+    data: {
+      accessUsers: { disconnect: { id: Number(accessUserId) } },
+    },
+  });
+
+Query: SELECT "public"."User"."id", "public"."User"."email", "public"."User"."role", "public"."User"."createdAt", "public"."User"."updatedAt" FROM "public"."User" WHERE "public"."User"."id" = $1 LIMIT $2 OFFSET $3
+Params: ["cl9riv3dv0014ltthsctkqb0r",1,0]
+{
+  id: 1,
+  accessHubId: 'cl2uwi6uv0030ybthbkls5w0i',
+  userId: 'cl9riv3dv0014ltthsctkqb0r'
+}
+Query: SELECT "public"."AccessPoint"."id", "public"."AccessPoint"."name", "public"."AccessPoint"."description", "public"."AccessPoint"."accessHubId", "public"."AccessPoint"."position" FROM "public"."AccessPoint" WHERE ("public"."AccessPoint"."id" = $1 AND "public"."AccessPoint"."accessHubId" = $2 AND ("public"."AccessPoint"."id") IN (SELECT "t0"."id" FROM "public"."AccessPoint" AS "t0" INNER JOIN "public"."AccessHub" AS "j0" ON ("j0"."id") = ("t0"."accessHubId") WHERE (("j0"."id") IN (SELECT "t1"."id" FROM "public"."AccessHub" AS "t1" INNER JOIN "public"."User" AS "j1" ON ("j1"."id") = ("t1"."userId") WHERE ("j1"."id" = $3 AND "t1"."id" IS NOT NULL)) AND "t0"."id" IS NOT NULL))) LIMIT $4 OFFSET $5
+Params: [1,"cl2uwi6uv0030ybthbkls5w0i","cl9riv3dv0014ltthsctkqb0r",1,0]
+
+Query: BEGIN
+Params: []
+Query: SELECT "public"."AccessPoint"."id" FROM "public"."AccessPoint" WHERE "public"."AccessPoint"."id" = $1
+Params: [1]
+Query: SELECT "public"."_AccessPointToAccessUser"."A", "public"."_AccessPointToAccessUser"."B" FROM "public"."_AccessPointToAccessUser" WHERE "public"."_AccessPointToAccessUser"."A" IN ($1)
+Params: [1]
+Query: SELECT "public"."AccessUser"."id" FROM "public"."AccessUser" WHERE ("public"."AccessUser"."id" = $1 AND "public"."AccessUser"."id" IN ($2,$3,$4,$5)) OFFSET $6
+Params: [4,1,2,3,4,0]
+Query: DELETE FROM "public"."_AccessPointToAccessUser" WHERE ("public"."_AccessPointToAccessUser"."A" = ($1) AND "public"."_AccessPointToAccessUser"."B" IN ($2))
+Params: [1,4]
+Query: SELECT "public"."AccessPoint"."id", "public"."AccessPoint"."name", "public"."AccessPoint"."description", "public"."AccessPoint"."accessHubId", "public"."AccessPoint"."position" FROM "public"."AccessPoint" WHERE "public"."AccessPoint"."id" = $1 LIMIT $2 OFFSET $3
+Params: [1,1,0]
+Query: COMMIT
+Params: []

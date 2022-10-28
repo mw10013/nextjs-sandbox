@@ -1,0 +1,31 @@
+export function getAccessPointWithHubAndUsers({
+  id,
+  userId,
+}: Pick<AccessPoint, "id"> & {
+  userId: User["id"];
+}) {
+  return prisma.accessPoint.findFirstOrThrow({
+    where: {
+      id,
+      accessHub: { user: { id: userId } },
+    },
+    include: {
+      accessHub: true,
+      accessUsers: { orderBy: { name: "asc" } },
+    },
+  });
+}
+
+Query: SELECT "public"."User"."id", "public"."User"."email", "public"."User"."role", "public"."User"."createdAt", "public"."User"."updatedAt" FROM "public"."User" WHERE "public"."User"."id" = $1 LIMIT $2 OFFSET $3
+Params: ["cl9riv3dv0014ltthsctkqb0r",1,0]
+Query: SELECT "public"."User"."id", "public"."User"."email", "public"."User"."role", "public"."User"."createdAt", "public"."User"."updatedAt" FROM "public"."User" WHERE "public"."User"."id" = $1 LIMIT $2 OFFSET $3
+Params: ["cl9riv3dv0014ltthsctkqb0r",1,0]
+
+Query: SELECT "public"."AccessPoint"."id", "public"."AccessPoint"."name", "public"."AccessPoint"."description", "public"."AccessPoint"."accessHubId", "public"."AccessPoint"."position" FROM "public"."AccessPoint" WHERE ("public"."AccessPoint"."id" = $1 AND ("public"."AccessPoint"."id") IN (SELECT "t0"."id" FROM "public"."AccessPoint" AS "t0" INNER JOIN "public"."AccessHub" AS "j0" ON ("j0"."id") = ("t0"."accessHubId") WHERE (("j0"."id") IN (SELECT "t1"."id" FROM "public"."AccessHub" AS "t1" INNER JOIN "public"."User" AS "j1" ON ("j1"."id") = ("t1"."userId") WHERE ("j1"."id" = $2 AND "t1"."id" IS NOT NULL)) AND "t0"."id" IS NOT NULL))) LIMIT $3 OFFSET $4
+Params: [1,"cl9riv3dv0014ltthsctkqb0r",1,0]
+Query: SELECT "public"."AccessHub"."id", "public"."AccessHub"."name", "public"."AccessHub"."description", "public"."AccessHub"."heartbeatAt", "public"."AccessHub"."userId" FROM "public"."AccessHub" WHERE "public"."AccessHub"."id" IN ($1) OFFSET $2
+Params: ["cl2uwi6uv0030ybthbkls5w0i",0]
+Query: SELECT "public"."_AccessPointToAccessUser"."A", "public"."_AccessPointToAccessUser"."B" FROM "public"."_AccessPointToAccessUser" WHERE "public"."_AccessPointToAccessUser"."A" IN ($1)
+Params: [1]
+Query: SELECT "public"."AccessUser"."id", "public"."AccessUser"."name", "public"."AccessUser"."description", "public"."AccessUser"."code", "public"."AccessUser"."activateCodeAt", "public"."AccessUser"."expireCodeAt", "public"."AccessUser"."userId", "public"."AccessUser"."deletedAt" FROM "public"."AccessUser" WHERE "public"."AccessUser"."id" IN ($1,$2,$3,$4) ORDER BY "public"."AccessUser"."name" ASC OFFSET $5
+Params: [1,2,3,4,0]

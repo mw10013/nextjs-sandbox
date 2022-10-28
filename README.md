@@ -24,12 +24,11 @@ Uses pnpm.
 - pnpm add -D @types/pg
 - pnpm remove/add next react@latest react-dom@latest
 - pnpm remove/add -D eslint-config-next@latest
-- pnpm add pg-native
-  -- this is required lazily by pg and should not actually be used
-  -- will cause compilation error on install if postgres client lib not install but can ignore
-- pnpm add server-only 
+- pnpm add pg-native (required lazily by pg but not used. ignore compilation error on install)
+- pnpm add server-only
 - pnpm add @heroicons/react
-- pnpm add @headlessui/react 
+- pnpm add @headlessui/react
+- pnpm add encoding (not needed but causes compiling warning otherwise)
 
 [Prettier](https://prettier.io/docs/en/install.html)
 
