@@ -1,4 +1,4 @@
-import { pgPool } from "../../db";
+import { pgTypedClient } from "../../db";
 import { findUniqueAccessHub } from "../../db/find_unique_access_hub.queries";
 import { findAuthUserCounts } from "../../db/access.queries";
 import { getAccessPoint } from "../../db/get_access_point.queries";
@@ -13,15 +13,18 @@ async function fetchData() {
       accessHubId: 4,
       authUserId: "733e54ae-c9dc-4b9a-94d0-764fbd1bd76e",
     },
-    pgPool
+    pgTypedClient
   );
   const accessPoint = accessPointArray.length > 0 ? accessPointArray[0] : null;
   console.log(accessPoint);
   if (accessPoint) {
     console.log(accessPoint.accessPointId);
   }
-  const authUserCounts = await findAuthUserCounts.run(undefined, pgPool);
-  const hub = await findUniqueAccessHub.run({ access_hub_id: 1 }, pgPool);
+  const authUserCounts = await findAuthUserCounts.run(undefined, pgTypedClient);
+  const hub = await findUniqueAccessHub.run(
+    { access_hub_id: 1 },
+    pgTypedClient
+  );
 
   return { dt: new Date().toISOString(), accessPoint, authUserCounts, hub };
 }
