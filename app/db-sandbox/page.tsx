@@ -3,9 +3,6 @@ import { findUniqueAccessHub } from "../../db/find_unique_access_hub.queries";
 import { findAuthUserCounts } from "../../db/access.queries";
 import { getAccessPoint } from "../../db/get_access_point.queries";
 
-type T = Awaited<ReturnType<typeof getAccessPoint.run>>[number];
-type T1 = T["accessPointId"];
-
 async function fetchData() {
   const accessPointArray = await getAccessPoint.run(
     {
@@ -16,10 +13,6 @@ async function fetchData() {
     pgTypedClient
   );
   const accessPoint = accessPointArray.length > 0 ? accessPointArray[0] : null;
-  console.log(accessPoint);
-  if (accessPoint) {
-    console.log(accessPoint.accessPointId);
-  }
   const authUserCounts = await findAuthUserCounts.run(undefined, pgTypedClient);
   const hub = await findUniqueAccessHub.run(
     { access_hub_id: 1 },
