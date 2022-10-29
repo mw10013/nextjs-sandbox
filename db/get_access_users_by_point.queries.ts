@@ -3,7 +3,7 @@ import { PreparedQuery } from '@pgtyped/query';
 
 /** 'GetAccessUsersByPoint' parameters type */
 export interface IGetAccessUsersByPointParams {
-  access_point_id: number | null | void;
+  accessPointId: number | null | void;
 }
 
 /** 'GetAccessUsersByPoint' return type */
@@ -23,16 +23,16 @@ export interface IGetAccessUsersByPointQuery {
   result: IGetAccessUsersByPointResult;
 }
 
-const getAccessUsersByPointIR: any = {"usedParamSet":{"access_point_id":true},"params":[{"name":"access_point_id","required":false,"transform":{"type":"scalar"},"locs":[{"a":149,"b":164}]}],"statement":"-- \\set access_point_id 14\nselect access_user.*\nfrom access_user\n    join access_point_to_access_user using (access_user_id)\nwhere access_point_id = :access_point_id\norder by name"};
+const getAccessUsersByPointIR: any = {"usedParamSet":{"accessPointId":true},"params":[{"name":"accessPointId","required":false,"transform":{"type":"scalar"},"locs":[{"a":147,"b":160}]}],"statement":"-- \\set accessPointId 14\nselect access_user.*\nfrom access_user\n    join access_point_to_access_user using (access_user_id)\nwhere access_point_id = :accessPointId\norder by name"};
 
 /**
  * Query generated from SQL:
  * ```
- * -- \set access_point_id 14
+ * -- \set accessPointId 14
  * select access_user.*
  * from access_user
  *     join access_point_to_access_user using (access_user_id)
- * where access_point_id = :access_point_id
+ * where access_point_id = :accessPointId
  * order by name
  * ```
  */

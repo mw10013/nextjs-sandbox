@@ -3,8 +3,8 @@ import { PreparedQuery } from '@pgtyped/query';
 
 /** 'GetAccessHub' parameters type */
 export interface IGetAccessHubParams {
-  access_hub_id: number | null | void;
-  auth_user_id: string | null | void;
+  accessHubId: number | null | void;
+  authUserId: string | null | void;
 }
 
 /** 'GetAccessHub' return type */
@@ -23,18 +23,18 @@ export interface IGetAccessHubQuery {
   result: IGetAccessHubResult;
 }
 
-const getAccessHubIR: any = {"usedParamSet":{"access_hub_id":true,"auth_user_id":true},"params":[{"name":"access_hub_id","required":false,"transform":{"type":"scalar"},"locs":[{"a":187,"b":200}]},{"name":"auth_user_id","required":false,"transform":{"type":"scalar"},"locs":[{"a":225,"b":237}]}],"statement":"-- \\set access_hub_id 4\n-- \\set auth_user_id '\\'733e54ae-c9dc-4b9a-94d0-764fbd1bd76e\\''\nselect access_hub.*\nfrom access_hub\n    join auth.users on id = auth_user_id\nwhere access_hub_id = :access_hub_id\n    and auth_user_id = :auth_user_id"};
+const getAccessHubIR: any = {"usedParamSet":{"accessHubId":true,"authUserId":true},"params":[{"name":"accessHubId","required":false,"transform":{"type":"scalar"},"locs":[{"a":183,"b":194}]},{"name":"authUserId","required":false,"transform":{"type":"scalar"},"locs":[{"a":219,"b":229}]}],"statement":"-- \\set accessHubId 4\n-- \\set authUserId '\\'733e54ae-c9dc-4b9a-94d0-764fbd1bd76e\\''\nselect access_hub.*\nfrom access_hub\n    join auth.users on id = auth_user_id\nwhere access_hub_id = :accessHubId\n    and auth_user_id = :authUserId"};
 
 /**
  * Query generated from SQL:
  * ```
- * -- \set access_hub_id 4
- * -- \set auth_user_id '\'733e54ae-c9dc-4b9a-94d0-764fbd1bd76e\''
+ * -- \set accessHubId 4
+ * -- \set authUserId '\'733e54ae-c9dc-4b9a-94d0-764fbd1bd76e\''
  * select access_hub.*
  * from access_hub
  *     join auth.users on id = auth_user_id
- * where access_hub_id = :access_hub_id
- *     and auth_user_id = :auth_user_id
+ * where access_hub_id = :accessHubId
+ *     and auth_user_id = :authUserId
  * ```
  */
 export const getAccessHub = new PreparedQuery<IGetAccessHubParams,IGetAccessHubResult>(getAccessHubIR);
