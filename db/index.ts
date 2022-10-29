@@ -30,8 +30,11 @@ if (process.env.NODE_ENV !== "production") global.pgPool = pgPool;
 export const pgTypedClient: IDatabaseConnection = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   query(query: string, bindings: any[]) {
-    if (process.env.NODE_ENV !== "production") {
-      console.log({ query, bindings });
+    if (process.env.NODE_ENV === "production") {
+      console.log({ query });
+    }
+    else {
+      console.log({query, bindings})
     }
     return pgPool.query(query, bindings);
   },

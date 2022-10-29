@@ -2,9 +2,26 @@ import { pgTypedClient } from "../../db";
 import { findUniqueAccessHub } from "../../db/find_unique_access_hub.queries";
 import { findAuthUserCounts } from "../../db/access.queries";
 import { getAccessPoint } from "../../db/get_access_point.queries";
+import { IDatabaseConnection, PreparedQuery } from "@pgtyped/query/lib/tag";
+
+async function findUniqueOrThrow<TParamType, TResultType>(
+  preparedQuery: PreparedQuery<TParamType, TResultType>,
+  params: TParamType,
+  conn: IDatabaseConnection
+) {
+  const results = await preparedQuery.run(params, conn);
+  if (results.length === 1) {
+    return results[0];
+  } else if (results.length === 0) {
+    throw new Error(`findUnique: empty results`);
+  } else {
+    throw new Error(`findUnique: >1 row in results (${results.length} rows)`);
+  }
+}
 
 async function fetchData() {
-  const accessPointArray = await getAccessPoint.run(
+  const accessPoint = await findUniqueOrThrow(
+    getAccessPoint,
     {
       accessPointId: 14,
       accessHubId: 4,
@@ -12,7 +29,6 @@ async function fetchData() {
     },
     pgTypedClient
   );
-  const accessPoint = accessPointArray.length > 0 ? accessPointArray[0] : null;
   const authUserCounts = await findAuthUserCounts.run(undefined, pgTypedClient);
   const hub = await findUniqueAccessHub.run(
     { access_hub_id: 1 },
