@@ -29,6 +29,7 @@ Uses pnpm.
 - pnpm add @heroicons/react
 - pnpm add @headlessui/react
 - pnpm add encoding (not needed but causes compiling warning otherwise)
+- pnpm add lodash @types/lodash
 
 [Prettier](https://prettier.io/docs/en/install.html)
 

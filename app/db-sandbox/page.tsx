@@ -3,6 +3,23 @@ import { getAccessPoint } from "../../db/get_access_point.queries";
 import { IDatabaseConnection, PreparedQuery } from "@pgtyped/query/lib/tag";
 import { getAccessHub } from "../../db/get_access_hub.queries";
 import { getAccessUsersByPoint } from "../../db/get_access_users_by_point.queries";
+import _ from "lodash";
+
+/* 
+pgTyped camelCaseColumnNames config seems to be implemented on types, but not values.
+PreparedQuery.run returns results that may not align with its type. 
+We mutate results as needed for camelCaseColumnNames.
+Note that pgTyped mapQueryResultRows also mutates.
+*/
+
+function camelCaseResultMutation(result: Record<string, unknown>) {
+  for (const k of Object.keys(result)) {
+    if (k.indexOf("_")) {
+      result[_.camelCase(k)] = result[k];
+      delete result[k];
+    }
+  }
+}
 
 async function findUniqueOrThrow<TParamType, TResultType>(
   preparedQuery: PreparedQuery<TParamType, TResultType>,
@@ -11,6 +28,7 @@ async function findUniqueOrThrow<TParamType, TResultType>(
 ) {
   const results = await preparedQuery.run(params, conn);
   if (results.length === 1) {
+    camelCaseResultMutation(results[0] as Record<string, unknown>);
     return results[0];
   } else if (results.length === 0) {
     throw new Error(`findUnique: empty results`);
@@ -24,7 +42,11 @@ async function findMany<TParamType, TResultType>(
   params: TParamType,
   conn: IDatabaseConnection
 ) {
-  return preparedQuery.run(params, conn);
+  const results = await preparedQuery.run(params, conn);
+  for (const result of results) {
+    camelCaseResultMutation(result as Record<string, unknown>);
+  }
+  return results;
 }
 
 async function fetchData() {
