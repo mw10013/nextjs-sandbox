@@ -48,17 +48,18 @@ async function fetchData() {
     pgTypedClient
   );
 
-  return { dt: new Date().toISOString(), accessPoint, accessHub, accessUsers };
+  return {
+    dt: new Date().toISOString(),
+    accessPoint: { ...accessPoint, accessHub, accessUsers },
+  };
 }
 
 export default async function Page() {
-  const { dt, accessPoint, accessHub, accessUsers } = await fetchData();
+  const { dt, accessPoint } = await fetchData();
   return (
     <div>
       <p>{dt}</p>
       <pre>{JSON.stringify(accessPoint, null, 2)}</pre>
-      <pre>{JSON.stringify(accessHub, null, 2)}</pre>
-      <pre>{JSON.stringify(accessUsers, null, 2)}</pre>
     </div>
   );
 }
