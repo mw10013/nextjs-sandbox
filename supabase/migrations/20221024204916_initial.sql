@@ -5,12 +5,12 @@ create table access_user (
     code text not null check (code <> ''),
     activate_code_at timestamptz,
     expire_code_at timestamptz,
-    auth_user_id uuid not null references auth.users on delete cascade,
-    unique (auth_user_id, name),
-    unique (auth_user_id, code)
+    customer_id uuid not null references auth.users on delete cascade,
+    unique (customer_id, name),
+    unique (customer_id, code)
 );
 
-create index on access_user (auth_user_id);
+create index on access_user (customer_id);
 
 create table access_hub (
     access_hub_id serial primary key,
@@ -19,10 +19,10 @@ create table access_hub (
     heartbeat_at timestamptz,
     -- unique with no default?
     api_token text default ''::text not null,
-    auth_user_id uuid not null references auth.users on delete cascade
+    customer_id uuid not null references auth.users on delete cascade
 );
 
-create index on access_hub (auth_user_id);
+create index on access_hub (customer_id);
 
 create table access_point (
     access_point_id serial primary key,

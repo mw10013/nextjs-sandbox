@@ -31,7 +31,7 @@ insert into auth.users
 insert into auth.users
     values ('00000000-0000-0000-0000-000000000000', 'b6d21aab-58ec-4122-be89-ca6355dc52f5', 'authenticated', 'authenticated', 'admin@access.com', '$2a$10$2GNivJp/KeQAPMYdkKNzNeZcquz2OPqYAPO31WlZ.23c3kSNNwh1q', '2022-10-24 18:45:28.991862+00', '2022-10-24 18:45:07.465984+00', '', '2022-10-24 18:45:07.465984+00', '', null, '', '', null, '2022-10-24 18:45:28.992415+00', '{"provider": "email", "providers": ["email"]}', '{"appRole": "admin"}', null, '2022-10-24 18:45:07.462593+00', '2022-10-24 19:35:24.908825+00', null, null, '', '', null, default, '', 0, NULL, '', null);
 
-insert into access_hub (name, description, auth_user_id)
+insert into access_hub (name, description, customer_id)
 select 'Hub ' || hub_index,
     'This is hub ' || hub_index,
     id
@@ -48,7 +48,7 @@ from access_hub,
     generate_series(1, 4) as t (position)
 order by access_hub_id;
 
-insert into access_user (name, code, auth_user_id)
+insert into access_user (name, code, customer_id)
 select name,
     code,
     id
@@ -64,7 +64,7 @@ insert into access_point_to_access_user (access_point_id, access_user_id)
 select access_point_id,
     access_user_id
 from access_user
-    join access_hub using (auth_user_id)
+    join access_hub using (customer_id)
     join access_point using (access_hub_id)
 where (access_user.name = 'master')
     or (access_user.name = 'guest1'
