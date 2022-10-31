@@ -1,13 +1,12 @@
 import { findMany, findUniqueOrThrow, pgTypedClient } from "../../db";
 import { getAccessPoint } from "../../db/get_access_point.queries";
-import { getAccessHub } from "../../db/get_access_hub.queries";
-import { getAccessUsersByPoint } from "../../db/get_access_users_by_point.queries";
-import _ from "lodash";
+import { getAccessHub, IGetAccessHubResult } from "../../db/get_access_hub.queries";
+import { getAccessUsersByPoint, IGetAccessUsersByPointResult } from "../../db/get_access_users_by_point.queries";
 
 async function fetchData(): Promise<{
   accessPoint: {
-    accessHub: import("/home/mw10013/src/nextjs-sandbox/db/get_access_hub.queries").IGetAccessHubResult;
-    accessUsers: import("/home/mw10013/src/nextjs-sandbox/db/get_access_users_by_point.queries").IGetAccessUsersByPointResult[];
+    accessHub: IGetAccessHubResult;
+    accessUsers: IGetAccessUsersByPointResult[];
     accessHubId: number;
     accessPointId: number;
     name: string;

@@ -1,6 +1,7 @@
 import "server-only";
 import { Pool } from "pg";
 import { IDatabaseConnection, PreparedQuery } from "@pgtyped/query/lib/tag";
+import _ from "lodash";
 
 // https://www.prisma.io/docs/guides/database/troubleshooting-orm/help-articles/nextjs-prisma-client-dev-practices
 
@@ -21,10 +22,6 @@ export const pgPool =
   });
 
 if (process.env.NODE_ENV !== "production") global.pgPool = pgPool;
-
-// export interface IDatabaseConnection {
-//   query: (query: string, bindings: any[]) => Promise<{ rows: any[] }>;
-// }
 
 // https://node-postgres.com/guides/project-structure
 export const pgTypedClient: IDatabaseConnection = {
@@ -48,7 +45,7 @@ Note that pgTyped mapQueryResultRows also mutates.
 
 function camelCaseResultMutation(result: Record<string, unknown>) {
   for (const k of Object.keys(result)) {
-    if (k.indexOf("_")) {
+    if (k.indexOf("_") >= 0) {
       result[_.camelCase(k)] = result[k];
       delete result[k];
     }
