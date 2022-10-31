@@ -1,6 +1,10 @@
+import { headers } from "next/headers";
 import { supabaseAdminClient } from "../../utils/supabaseClient";
 
+export const dynamic = "force-dynamic";
+
 async function fetchData() {
+  headers(); // workaround for export const dynamic = 'force-dynamic'
   /*
   for (const { id, appRole } of [
     { id: "f47bfe76-134c-4b27-859f-8007451a2522", appRole: "customer" },

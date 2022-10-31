@@ -8,6 +8,7 @@ import {
   getAccessUsersByPoint,
   IGetAccessUsersByPointResult,
 } from "../../db/get_access_users_by_point.queries";
+import { headers } from "next/headers";
 
 async function fetchData(): Promise<{
   accessPoint: {
@@ -19,6 +20,7 @@ async function fetchData(): Promise<{
     position: number;
   };
 }> {
+  headers(); // workaround for export const dynamic = 'force-dynamic'
   const accessPoint = await findUniqueOrThrow(
     getAccessPoint,
     {

@@ -1,11 +1,24 @@
 /** Types generated for queries found in "db/find_deny_events.sql" */
 import { PreparedQuery } from '@pgtyped/query';
 
-/** Query 'FindDenyEvents' is invalid, so its result is assigned type 'never' */
-export type IFindDenyEventsResult = never;
+/** 'FindDenyEvents' parameters type */
+export type IFindDenyEventsParams = void;
 
-/** Query 'FindDenyEvents' is invalid, so its parameters are assigned type 'never' */
-export type IFindDenyEventsParams = never;
+/** 'FindDenyEvents' return type */
+export interface IFindDenyEventsResult {
+  access: string;
+  accessEventId: number;
+  accessPointId: number;
+  accessUserId: number | null;
+  at: Date;
+  code: string;
+}
+
+/** 'FindDenyEvents' query type */
+export interface IFindDenyEventsQuery {
+  params: IFindDenyEventsParams;
+  result: IFindDenyEventsResult;
+}
 
 const findDenyEventsIR: any = {"usedParamSet":{},"params":[],"statement":"select *\nfrom access_event\nwhere access = 'deny'"};
 

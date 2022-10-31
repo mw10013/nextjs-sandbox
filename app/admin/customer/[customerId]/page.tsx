@@ -1,4 +1,5 @@
-import { findUniqueOrThrow, pgTypedClient } from "../../../../db";
+import { findMany, findUniqueOrThrow, pgTypedClient } from "../../../../db";
+import { getAccessHubs } from "../../../../db/get_access_hubs.queries";
 import { getCustomer } from "../../../../db/get_customer.queries";
 
 async function fetchData(customerId: string) {
@@ -7,7 +8,12 @@ async function fetchData(customerId: string) {
     { customerId },
     pgTypedClient
   );
-  return { customer };
+  const accessHubs = await findMany(
+    getAccessHubs,
+    { customerId },
+    pgTypedClient
+  );
+  return { customer: {...customer, accessHubs} };
 }
 
 export default async function Page({

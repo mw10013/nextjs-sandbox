@@ -1,11 +1,27 @@
 /** Types generated for queries found in "db/get_access_users_by_point.sql" */
 import { PreparedQuery } from '@pgtyped/query';
 
-/** Query 'GetAccessUsersByPoint' is invalid, so its result is assigned type 'never' */
-export type IGetAccessUsersByPointResult = never;
+/** 'GetAccessUsersByPoint' parameters type */
+export interface IGetAccessUsersByPointParams {
+  accessPointId: number | null | void;
+}
 
-/** Query 'GetAccessUsersByPoint' is invalid, so its parameters are assigned type 'never' */
-export type IGetAccessUsersByPointParams = never;
+/** 'GetAccessUsersByPoint' return type */
+export interface IGetAccessUsersByPointResult {
+  accessUserId: number;
+  activateCodeAt: Date | null;
+  code: string;
+  customerId: string;
+  description: string;
+  expireCodeAt: Date | null;
+  name: string;
+}
+
+/** 'GetAccessUsersByPoint' query type */
+export interface IGetAccessUsersByPointQuery {
+  params: IGetAccessUsersByPointParams;
+  result: IGetAccessUsersByPointResult;
+}
 
 const getAccessUsersByPointIR: any = {"usedParamSet":{"accessPointId":true},"params":[{"name":"accessPointId","required":false,"transform":{"type":"scalar"},"locs":[{"a":147,"b":160}]}],"statement":"-- \\set accessPointId 14\nselect access_user.*\nfrom access_user\n    join access_point_to_access_user using (access_user_id)\nwhere access_point_id = :accessPointId\norder by name"};
 

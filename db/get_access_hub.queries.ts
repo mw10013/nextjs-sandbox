@@ -1,11 +1,27 @@
 /** Types generated for queries found in "db/get_access_hub.sql" */
 import { PreparedQuery } from '@pgtyped/query';
 
-/** Query 'GetAccessHub' is invalid, so its result is assigned type 'never' */
-export type IGetAccessHubResult = never;
+/** 'GetAccessHub' parameters type */
+export interface IGetAccessHubParams {
+  accessHubId: number | null | void;
+  customerId: string | null | void;
+}
 
-/** Query 'GetAccessHub' is invalid, so its parameters are assigned type 'never' */
-export type IGetAccessHubParams = never;
+/** 'GetAccessHub' return type */
+export interface IGetAccessHubResult {
+  accessHubId: number;
+  apiToken: string;
+  customerId: string;
+  description: string;
+  heartbeatAt: Date | null;
+  name: string;
+}
+
+/** 'GetAccessHub' query type */
+export interface IGetAccessHubQuery {
+  params: IGetAccessHubParams;
+  result: IGetAccessHubResult;
+}
 
 const getAccessHubIR: any = {"usedParamSet":{"accessHubId":true,"customerId":true},"params":[{"name":"accessHubId","required":false,"transform":{"type":"scalar"},"locs":[{"a":182,"b":193}]},{"name":"customerId","required":false,"transform":{"type":"scalar"},"locs":[{"a":217,"b":227}]}],"statement":"-- \\set accessHubId 4\n-- \\set customerId '\\'733e54ae-c9dc-4b9a-94d0-764fbd1bd76e\\''\nselect access_hub.*\nfrom access_hub\n    join auth.users on id = customer_id\nwhere access_hub_id = :accessHubId\n    and customer_id = :customerId"};
 

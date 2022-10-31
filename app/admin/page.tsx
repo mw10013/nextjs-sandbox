@@ -1,8 +1,10 @@
+import { headers } from "next/headers";
 import Link from "next/link";
 import { findMany, pgTypedClient } from "../../db";
 import { getCustomers } from "../../db/get_customers.queries";
 
 async function fetchData() {
+  headers(); // workaround for export const dynamic = 'force-dynamic'
   const customers = await findMany(getCustomers, undefined, pgTypedClient);
 
   return {
