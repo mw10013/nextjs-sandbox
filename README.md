@@ -55,6 +55,14 @@ Uses pnpm.
 - pnpm supabase gen types typescript --local > DatabaseDefinitions.ts
 - psql postgresql://postgres:postgres@localhost:54322/postgres
 
+## Reset Prod DB (hacky and risky)
+- drop schema public cascade;
+- create schema public;
+- truncate supabase_migrations.schema_migrations;
+- truncate auth.users cascade;
+- truncate auth.schema_migrations;
+- \i supabase/seed.sql
+
 ## pgtyped
 
 - pnpm exec pgtyped -w -c pgtyped.json
