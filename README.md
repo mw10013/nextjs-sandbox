@@ -24,7 +24,8 @@ Uses pnpm.
 - pnpm add -D @types/pg
 - pnpm remove/add next react@latest react-dom@latest
 - pnpm remove/add -D eslint-config-next@latest
-- pnpm add pg-native (required lazily by pg but not used. ignore compilation error on install)
+- apt-get install libpq-dev g++ make
+- pnpm add pg-native (required lazily by pg but not actually used)
 - pnpm add server-only
 - pnpm add @heroicons/react
 - pnpm add @headlessui/react
@@ -51,6 +52,7 @@ Uses pnpm.
 - pnpm supabase db branch create | delete | list | switch
 - pnpm supabase link -p [db password] --project-ref [string]
 - pnpm supabase db push -p [db password]
+- pnpm supabase migrations list
 - psql: \i supabase/seed.sql
 - pnpm supabase gen types typescript --local > DatabaseDefinitions.ts
 - psql postgresql://postgres:postgres@localhost:54322/postgres
