@@ -1,7 +1,13 @@
 import { findMany, findUniqueOrThrow, pgTypedClient } from "../../db";
 import { getAccessPoint } from "../../db/get_access_point.queries";
-import { getAccessHub, IGetAccessHubResult } from "../../db/get_access_hub.queries";
-import { getAccessUsersByPoint, IGetAccessUsersByPointResult } from "../../db/get_access_users_by_point.queries";
+import {
+  getAccessHub,
+  IGetAccessHubResult,
+} from "../../db/get_access_hub.queries";
+import {
+  getAccessUsersByPoint,
+  IGetAccessUsersByPointResult,
+} from "../../db/get_access_users_by_point.queries";
 
 async function fetchData(): Promise<{
   accessPoint: {
@@ -18,13 +24,13 @@ async function fetchData(): Promise<{
     {
       accessPointId: 14,
       accessHubId: 4,
-      authUserId: "733e54ae-c9dc-4b9a-94d0-764fbd1bd76e",
+      customerId: "733e54ae-c9dc-4b9a-94d0-764fbd1bd76e",
     },
     pgTypedClient
   );
   const accessHub = await findUniqueOrThrow(
     getAccessHub,
-    { accessHubId: 4, authUserId: "733e54ae-c9dc-4b9a-94d0-764fbd1bd76e" },
+    { accessHubId: 4, customerId: "733e54ae-c9dc-4b9a-94d0-764fbd1bd76e" },
     pgTypedClient
   );
   const accessUsers = await findMany(

@@ -1,37 +1,22 @@
 /** Types generated for queries found in "db/get_access_hubs.sql" */
 import { PreparedQuery } from '@pgtyped/query';
 
-/** 'GetAccessHubs' parameters type */
-export interface IGetAccessHubsParams {
-  authUserId: string | null | void;
-}
+/** Query 'GetAccessHubs' is invalid, so its result is assigned type 'never' */
+export type IGetAccessHubsResult = never;
 
-/** 'GetAccessHubs' return type */
-export interface IGetAccessHubsResult {
-  accessHubId: number;
-  apiToken: string;
-  authUserId: string;
-  description: string;
-  heartbeatAt: Date | null;
-  name: string;
-}
+/** Query 'GetAccessHubs' is invalid, so its parameters are assigned type 'never' */
+export type IGetAccessHubsParams = never;
 
-/** 'GetAccessHubs' query type */
-export interface IGetAccessHubsQuery {
-  params: IGetAccessHubsParams;
-  result: IGetAccessHubsResult;
-}
-
-const getAccessHubsIR: any = {"usedParamSet":{"authUserId":true},"params":[{"name":"authUserId","required":false,"transform":{"type":"scalar"},"locs":[{"a":160,"b":170}]}],"statement":"-- \\set authUserId '\\'733e54ae-c9dc-4b9a-94d0-764fbd1bd76e\\''\nselect access_hub.*\nfrom access_hub\n    join auth.users on id = auth_user_id\nwhere auth_user_id = :authUserId\norder by name"};
+const getAccessHubsIR: any = {"usedParamSet":{"customerId":true},"params":[{"name":"customerId","required":false,"transform":{"type":"scalar"},"locs":[{"a":158,"b":168}]}],"statement":"-- \\set customerId '\\'733e54ae-c9dc-4b9a-94d0-764fbd1bd76e\\''\nselect access_hub.*\nfrom access_hub\n    join auth.users on id = customer_id\nwhere customer_id = :customerId\norder by name"};
 
 /**
  * Query generated from SQL:
  * ```
- * -- \set authUserId '\'733e54ae-c9dc-4b9a-94d0-764fbd1bd76e\''
+ * -- \set customerId '\'733e54ae-c9dc-4b9a-94d0-764fbd1bd76e\''
  * select access_hub.*
  * from access_hub
- *     join auth.users on id = auth_user_id
- * where auth_user_id = :authUserId
+ *     join auth.users on id = customer_id
+ * where customer_id = :customerId
  * order by name
  * ```
  */
