@@ -25,12 +25,12 @@ Uses pnpm.
 - pnpm remove/add next react@latest react-dom@latest
 - pnpm remove/add -D eslint-config-next@latest
 - apt-get install libpq-dev g++ make
-- pnpm add pg-native (required lazily by pg but not actually used)
 - pnpm add server-only
 - pnpm add @heroicons/react
 - pnpm add @headlessui/react
 - pnpm add encoding (not needed but causes compiling warning otherwise)
-- pnpm add lodash @types/lodash
+- pnpm add lodash
+- pnpm add -D @types/lodash
 
 [Prettier](https://prettier.io/docs/en/install.html)
 
@@ -58,6 +58,7 @@ Uses pnpm.
 - psql postgresql://postgres:postgres@localhost:54322/postgres
 
 ## Reset Prod DB (hacky and risky)
+
 - drop schema public cascade;
 - create schema public;
 - truncate supabase_migrations.schema_migrations;
