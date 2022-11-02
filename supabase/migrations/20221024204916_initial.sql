@@ -6,18 +6,22 @@ create table access_user (
     activate_code_at timestamptz,
     expire_code_at timestamptz,
     customer_id uuid not null references auth.users on delete cascade,
-    unique (customer_id, name),
-    unique (customer_id, code)
+    deleted_at timestamptz
 );
 
 create index on access_user (customer_id);
+
+create unique index on access_user (customer_id, name)
+where deleted_at is null;
+
+create unique index on access_user (customer_id, code)
+where deleted_at is null;
 
 create table access_hub (
     access_hub_id serial primary key,
     name text default 'Hub' ::text not null check (name <> ''),
     description text default ''::text not null,
     heartbeat_at timestamptz,
-    -- unique with no default?
     api_token text default ''::text not null,
     customer_id uuid not null references auth.users on delete cascade
 );
