@@ -9,13 +9,12 @@ const nextConfig = {
     config,
     { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }
   ) => {
-    console.log({
-      webpackVersion: webpack.version,
-      dev,
-      isServer,
-      nextRuntime,
-    });
-    config.plugins.push(new webpack.IgnorePlugin({ resourceRegExp: /^pg-native$/}))
+    config.plugins.push(
+      new webpack.IgnorePlugin({ resourceRegExp: /^pg-native$/ })
+    );
+    config.plugins.push(
+      new webpack.IgnorePlugin({ resourceRegExp: /^encoding$/ })
+    );
     return config;
   },
 };

@@ -22,13 +22,13 @@ Uses pnpm.
 - pnpm add -D @pgtyped/cli @pgtyped/query
 - pnpm add pg
 - pnpm add -D @types/pg
+- next.config.js: webpack ignore: pg-native, encoding
 - pnpm remove/add next react@latest react-dom@latest
 - pnpm remove/add -D eslint-config-next@latest
 - apt-get install libpq-dev g++ make
 - pnpm add server-only
 - pnpm add @heroicons/react
 - pnpm add @headlessui/react
-- pnpm add encoding (not needed but causes compiling warning otherwise)
 - pnpm add lodash
 - pnpm add -D @types/lodash
 
