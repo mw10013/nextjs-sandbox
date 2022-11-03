@@ -12,6 +12,7 @@ export interface IGetAccessUsersByPointResult {
   activateCodeAt: Date | null;
   code: string;
   customerId: string;
+  deletedAt: Date | null;
   description: string;
   expireCodeAt: Date | null;
   name: string;
