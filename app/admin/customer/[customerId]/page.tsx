@@ -1,4 +1,6 @@
 import { hasSubscribers } from "diagnostics_channel";
+import Link from "next/link";
+import { Button } from "../../../../components/button";
 import { findMany, findUniqueOrThrow, pgTypedClient } from "../../../../db";
 import { getAccessHubs } from "../../../../db/get_access_hubs.queries";
 import { getAccessUsers } from "../../../../db/get_access_users.queries";
@@ -50,15 +52,20 @@ function DataList({
 
 function DataComponent({
   title,
+  sideAction, // Should be fragment if more than 1 item for flex
   data,
 }: {
   title: string;
+  sideAction?: React.ReactNode;
   data: Array<Array<[string, string]>>;
 }) {
   return (
     <div>
       <div className="border-b border-gray-200 pb-2 sm:flex sm:items-center sm:justify-between">
         <h3 className="text-lg font-medium leading-6 text-gray-900">{title}</h3>
+        {sideAction ? (
+          <div className="mt-3 flex sm:mt-0 sm:ml-4">{sideAction}</div>
+        ) : null}
       </div>
       <div className="">
         {data.map((d) => (
@@ -75,6 +82,8 @@ export default async function Page({
   params: { customerId: string };
 }) {
   const { customer } = await fetchData(params.customerId);
+  // const router = useRouter();
+
   return (
     <div className="p-5">
       <h1>Customer</h1>
@@ -100,6 +109,16 @@ export default async function Page({
         />
         <DataComponent
           title="Users"
+          sideAction={
+            <Link
+              href={{
+                pathname: "/admin/customer/[customerId]/users/create",
+                query: { customerId: params.customerId },
+              }}
+            >
+              Create
+            </Link>
+          }
           data={customer.accessUsers.map((user) => [
             ["Id", user.accessUserId.toString()],
             ["Name", user.name],
