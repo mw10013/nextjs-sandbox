@@ -24,7 +24,6 @@ export default async function Page() {
             </li>
           ))}
         </ul>
-      <pre>{JSON.stringify(customers, null, 2)}</pre>
     </div>
   );
 }
