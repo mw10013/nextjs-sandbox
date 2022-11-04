@@ -76,7 +76,7 @@ export default async function Page({
   return (
     <div className="p-5">
       <h1>Customer</h1>
-      <div className="max-w-sm mx-auto mt-5">
+      <div className="max-w-sm mx-auto mt-5 space-y-3">
         <DataComponent
           title="Properties"
           data={[
@@ -96,44 +96,18 @@ export default async function Page({
             ["API Token", hub.apiToken],
           ])}
         />
-
-        <div className="text-center">Hubs</div>
-        <div className="-mt-2">
-          {customer.accessHubs.map((hub) => (
-            <DataList
-              className="mt-2"
-              data={[
-                ["Id", hub.accessHubId.toString()],
-                ["Name", hub.name],
-                ["Description", hub.description],
-                ["Heartbeat", hub.heartbeatAt?.toISOString() ?? ""],
-                ["API Token", hub.apiToken],
-              ]}
-            />
-          ))}
-        </div>
-        <div className="text-center">Users</div>
-        {customer.accessUsers.map((user) => (
-          <DataList
-            data={[
-              ["Id", user.accessUserId.toString()],
-              ["Name", user.name],
-              ["Description", user.description],
-              ["Code", user.code],
-              ["Activate Code At", user.activateCodeAt?.toISOString() ?? ""],
-              ["Expire Code At", user.expireCodeAt?.toISOString() ?? ""],
-            ]}
-          />
-        ))}
+        <DataComponent
+          title="Users"
+          data={customer.accessUsers.map((user) => [
+            ["Id", user.accessUserId.toString()],
+            ["Name", user.name],
+            ["Description", user.description],
+            ["Code", user.code],
+            ["Activate Code At", user.activateCodeAt?.toISOString() ?? ""],
+            ["Expire Code At", user.expireCodeAt?.toISOString() ?? ""],
+          ])}
+        />
       </div>
-      {/* <ul className="max-w-sm mx-auto mt-5 divide-y divide-gray-500">
-          {customers.map((c) => (
-            <li key={c.id} className="py-2">
-              <Link href={`/admin/customer/${c.id}`}>{c.email}</Link>
-            </li>
-          ))}
-        </ul> */}
-      <pre>{JSON.stringify(customer, null, 2)}</pre>
     </div>
   );
 }
