@@ -25,10 +25,10 @@ async function fetchData(customerId: string) {
 
 function DataListItem({ label, value }: { label: string; value: string }) {
   return (
-    <div key={label} className="flex justify-between">
+    <li className="flex justify-between">
       <div>{label}</div>
       <div>{value}</div>
-    </div>
+    </li>
   );
 }
 
@@ -42,7 +42,7 @@ function DataList({
   return (
     <ul className={className}>
       {data.map(([label, value]) => (
-        <DataListItem label={label} value={value} />
+        <DataListItem key={label} label={label} value={value} />
       ))}
     </ul>
   );
@@ -60,7 +60,7 @@ function DataComponent({
       <h3 className="text-center">{title}</h3>
       <div className="-mt-2">
         {data.map((d) => (
-          <DataList className="mt-2" data={d} />
+          <DataList key={d[0][1]} className="mt-2" data={d} />
         ))}
       </div>
     </div>
