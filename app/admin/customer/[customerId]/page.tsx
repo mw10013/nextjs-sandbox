@@ -57,8 +57,10 @@ function DataComponent({
 }) {
   return (
     <div>
-      <h3 className="text-center">{title}</h3>
-      <div className="-mt-2">
+      <div className="border-b border-gray-200 pb-2 sm:flex sm:items-center sm:justify-between">
+        <h3 className="text-lg font-medium leading-6 text-gray-900">{title}</h3>
+      </div>
+      <div className="">
         {data.map((d) => (
           <DataList key={d[0][1]} className="mt-2" data={d} />
         ))}
