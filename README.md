@@ -16,6 +16,7 @@ Uses pnpm.
 - pnpm add @hookform/resolvers
 - pnpm add zod
 - pnpm add @tanstack/react-query
+- pnpm add -D supabase
 - pnpm add @supabase/supabase-js
 - pnpm add @supabase/auth-helpers-nextjs
 - pnpm add @supabase/auth-helpers-react
