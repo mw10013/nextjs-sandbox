@@ -25,7 +25,6 @@ Uses pnpm.
 - next.config.js: webpack ignore: pg-native, encoding
 - pnpm remove/add next react@latest react-dom@latest
 - pnpm remove/add -D eslint-config-next@latest
-- apt-get install libpq-dev g++ make
 - pnpm add server-only
 - pnpm add @heroicons/react
 - pnpm add @headlessui/react
